@@ -1,5 +1,7 @@
+import Comment from "./components/Comment";
+
 function App() {
-  return <>Hello World!</>;
+  return <Comment />;
 }
 
 export default App;
