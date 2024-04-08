@@ -3,7 +3,7 @@ export const DATA = [
     currentUser: {
       image: {
         png: require("../images/avatars/image-juliusomo.png"),
-        webp: "./images/avatars/image-juliusomo.webp",
+        webp: require("../images/avatars/image-juliusomo.webp"),
       },
       username: "juliusomo",
     },
@@ -16,8 +16,8 @@ export const DATA = [
         score: 12,
         user: {
           image: {
-            png: "./images/avatars/image-amyrobson.png",
-            webp: "./images/avatars/image-amyrobson.webp",
+            png: require("../images/avatars/image-amyrobson.png"),
+            webp: require("../images/avatars/image-amyrobson.webp"),
           },
           username: "amyrobson",
         },
@@ -31,8 +31,8 @@ export const DATA = [
         score: 5,
         user: {
           image: {
-            png: "./images/avatars/image-maxblagun.png",
-            webp: "./images/avatars/image-maxblagun.webp",
+            png: require("../images/avatars/image-maxblagun.png"),
+            webp: require("../images/avatars/image-maxblagun.webp"),
           },
           username: "maxblagun",
         },
@@ -46,8 +46,8 @@ export const DATA = [
             replyingTo: "maxblagun",
             user: {
               image: {
-                png: "./images/avatars/image-ramsesmiron.png",
-                webp: "./images/avatars/image-ramsesmiron.webp",
+                png: require("../images/avatars/image-ramsesmiron.png"),
+                webp: require("../images/avatars/image-ramsesmiron.webp"),
               },
               username: "ramsesmiron",
             },
@@ -61,8 +61,8 @@ export const DATA = [
             replyingTo: "ramsesmiron",
             user: {
               image: {
-                png: "./images/avatars/image-juliusomo.png",
-                webp: "./images/avatars/image-juliusomo.webp",
+                png: require("../images/avatars/image-juliusomo.png"),
+                webp: require("../images/avatars/image-juliusomo.webp"),
               },
               username: "juliusomo",
             },
