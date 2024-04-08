@@ -2,13 +2,15 @@ import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
 import ReplyIcon from "../../images/icon-reply.svg";
-import avatar from "../../images/avatars/image-amyrobson.png";
+// import avatar from "../images/avatars/image-amyrobson.png";
+import { DATA } from "../data";
 
 function Comment() {
+  console.log(DATA[0].currentUser.image.png);
   return (
     <Wrapper>
       <Head>
-        <Avatar src={avatar} />
+        <Avatar src={require("../../images/avatars/image-amyrobson.png")} alt="" />
         <Name>amyrobson</Name>
         <Duration>1 month ago</Duration>
       </Head>
@@ -44,12 +46,7 @@ const Head = styled.div`
   align-items: center;
   gap: 1rem;
 `;
-const Avatar = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-`;
+
 const Name = styled.p`
   color: var(--grayish-blue);
   font-weight: 700;
@@ -92,6 +89,17 @@ const Reply = styled.span`
   /* padding: 1rem 0; */
   color: var(--moderate-blue);
   font-weight: 600;
+`;
+
+export function Avatar({ src, alt }) {
+  return <AvatarImg src={src} alt={alt} />;
+}
+
+const AvatarImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 
 export default Comment;

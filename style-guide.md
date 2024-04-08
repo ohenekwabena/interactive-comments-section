@@ -18,11 +18,6 @@ The designs were created to the following widths:
 - Light grayish blue: hsl(239, 57%, 85%)
 - Pale red: hsl(357, 100%, 86%)
 
---moderate-blue: hsl(238, 40%, 52%);
---soft-red: hsl(358, 79%, 66%);
---light-grayish-blue: hsl(239, 57%, 85%);
---pale-red: hsl(357, 100%, 86%);
-
 ### Neutral
 
 - Dark blue: hsl(212, 24%, 26%)
