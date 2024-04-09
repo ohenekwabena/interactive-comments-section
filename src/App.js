@@ -25,7 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const MaxWidthWrapper = styled.div`
-  max-width: 650px;
+  max-width: 700px;
 `;
 
 export default App;

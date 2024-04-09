@@ -2,12 +2,29 @@ import { Avatar } from "./Comment.js";
 import { DATA as userData } from "../data.js";
 import { styled } from "styled-components";
 import UnstyledButton from "./UnstyledButton.js";
-function Reply() {
+import { useContext, useState } from "react";
+import { CommentContext } from "./CommentsProvider";
+function AddComment({ username, isReplying, parentId, replying }) {
+  const { addComment } = useContext(CommentContext);
+  const [userComment, setUserComment] = useState("");
+
+  console.log(parentId);
+  function postComment() {
+    if (replying) {
+      addComment(userComment, parentId, username);
+      isReplying(false);
+      setUserComment("");
+      return;
+    }
+    addComment(userComment, null, username);
+    setUserComment("");
+  }
+
   return (
     <Wrapper>
       <ReplyAvatar src={userData[0].currentUser.image.png} alt="" />
-      <ReplyText placeholder="Add a comment..."></ReplyText>
-      <Button>Send</Button>
+      <ReplyText placeholder="Add a comment..." onChange={(e) => setUserComment(e.target.value)}></ReplyText>
+      <Button onClick={postComment}>Send</Button>
     </Wrapper>
   );
 }
@@ -37,6 +54,8 @@ const ReplyText = styled.textarea`
   border-radius: 0.5rem;
   border: 1px solid var(--light-gray);
   font-family: "Rubik";
+  font-size: 1rem;
+  color: var(--grayish-blue);
 
   &::placeholder {
     font-size: 1rem;
@@ -47,6 +66,7 @@ const ReplyText = styled.textarea`
     grid-row: 1 / 3;
   }
 `;
+
 const ReplyAvatar = styled(Avatar)`
   grid-column: 1 / 2;
   grid-row: 2 / 3;
@@ -66,6 +86,7 @@ const Button = styled(UnstyledButton)`
   border-radius: 0.5rem;
   font-family: "Rubik";
   text-transform: uppercase;
+  cursor: pointer;
 
   @media (min-width: 29.688rem) {
     grid-column: 3 / 4;
@@ -74,4 +95,4 @@ const Button = styled(UnstyledButton)`
   }
 `;
 
-export default Reply;
+export default AddComment;
