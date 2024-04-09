@@ -1,8 +1,11 @@
+import { DATA } from "../data.js";
 import { useState } from "react";
 import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
 import ReplyIcon from "../../images/icon-reply.svg";
+import Edit from "../../images/icon-edit.svg";
+import Delete from "../../images/icon-delete.svg";
 import CommentReplies from "./CommentReplies";
 import AddComment from "./AddComment";
 import UnstyledButton from "./UnstyledButton";
@@ -10,6 +13,7 @@ import UnstyledButton from "./UnstyledButton";
 function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
   const forwardedParentId = id;
+  const currentUsername = DATA[0].currentUser.username;
   return (
     <>
       <div>
@@ -17,6 +21,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
           <Head>
             <Avatar src={user?.image.png} alt="" />
             <Name>{user?.username}</Name>
+            {currentUsername === user.username && <Verified>you</Verified>}
             <Duration>{createdAt}</Duration>
           </Head>
           <Content>
@@ -31,10 +36,25 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
               <img src={Minus} alt="" />
             </UnstyledButton>
           </Rating>
-          <Reply onClick={() => setReplying(!replying)}>
-            <img src={ReplyIcon} alt="" />
-            <p>Reply</p>
-          </Reply>
+          <CurrentUserActions>
+            {user.username === currentUsername ? (
+              <>
+                <DeleteButton>
+                  <img src={Delete} alt="" />
+                  <p>Delete</p>
+                </DeleteButton>
+                <EditButton>
+                  <img src={Edit} alt="" />
+                  <p>Edit</p>
+                </EditButton>
+              </>
+            ) : (
+              <Reply onClick={() => setReplying(!replying)}>
+                <img src={ReplyIcon} alt="" />
+                <p>Reply</p>
+              </Reply>
+            )}
+          </CurrentUserActions>
         </Wrapper>
         {replying && <AddComment isReplying={setReplying} username={user.username} parentId={id} replying={replying} />}
       </div>
@@ -94,6 +114,7 @@ const Name = styled.p`
 const Duration = styled.p`
   color: var(--grayish-blue);
   min-width: fit-content;
+  text-overflow: ellipsis;
 `;
 
 const Content = styled.p`
@@ -113,10 +134,9 @@ const Rating = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.875rem;
+  gap: 1rem;
   padding: 0 0.75rem;
   border-radius: 8px;
-  min-height: 100px;
   color: var(--light-grayish-blue);
   background-color: var(--very-light-gray);
   font-weight: 600;
@@ -139,25 +159,18 @@ const Rating = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0.75rem 0;
+    min-height: 100px;
   }
 `;
 
-const Reply = styled.span`
-  grid-row: 3;
-  grid-column: 3;
+const Reply = styled(UnstyledButton)`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  /* padding: 1rem 0; */
   color: var(--moderate-blue);
   font-weight: 600;
   cursor: pointer;
-
-  @media (min-width: 29.688rem) {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-  }
 `;
 
 const ReplyingTo = styled.span`
@@ -176,4 +189,50 @@ const AvatarImg = styled.img`
   object-fit: cover;
 `;
 
+const CurrentUserActions = styled.div`
+  grid-row: 3;
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  @media (min-width: 29.688rem) {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
+`;
+
+const DeleteButton = styled(UnstyledButton)`
+  color: var(--soft-red);
+  font-weight: 700;
+  background-color: white;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  & img {
+    transform: translateY(-1px);
+  }
+`;
+
+const EditButton = styled(UnstyledButton)`
+  color: var(--moderate-blue);
+  font-weight: 700;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const Verified = styled.span`
+  background-color: var(--moderate-blue);
+  color: var(--white);
+  padding: 0 0.45rem;
+  font-size: 0.75rem;
+  border-radius: 2px;
+`;
 export default Comment;
