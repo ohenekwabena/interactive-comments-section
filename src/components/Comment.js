@@ -10,10 +10,12 @@ import CommentReplies from "./CommentReplies";
 import AddComment from "./AddComment";
 import UnstyledButton from "./UnstyledButton";
 import EditComment from "./EditComment.js";
+import DeleteComment from "./DeleteComment.js";
 
 function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const forwardedParentId = id;
   const currentUsername = DATA[0].currentUser.username;
   return (
@@ -48,7 +50,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
           <CurrentUserActions>
             {user.username === currentUsername ? (
               <>
-                <DeleteButton>
+                <DeleteButton onClick={() => setConfirmDelete(true)}>
                   <img src={Delete} alt="" />
                   <p>Delete</p>
                 </DeleteButton>
@@ -83,6 +85,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
           ))}
         </CommentReplies>
       )}
+      <DeleteComment id={id} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
     </>
   );
 }
@@ -105,11 +108,11 @@ const Wrapper = styled.article`
 
 const Head = styled.div`
   grid-row: 1;
-  grid-column: 1 / 3;
+  grid-column: 1 / 4;
   display: flex;
   align-items: center;
   gap: 1rem;
-  text-overflow: ellipsis;
+  overflow: hidden;
 
   @media (min-width: 29.688rem) {
     grid-column: 2 / 3;
@@ -124,6 +127,7 @@ const Name = styled.p`
 const Duration = styled.p`
   color: var(--grayish-blue);
   min-width: fit-content;
+  overflow-x: hidden;
 `;
 
 const Content = styled.div`

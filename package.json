@@ -14,14 +14,14 @@
     "webpack-config": "^7.5.0"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.0.5",
     "file-loader": "^6.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "styled-components": "^6.1.8"
   },
-
   "staticFiles": {
-      "staticPath": "static",
-      "watcherGlob": "**"
+    "staticPath": "static",
+    "watcherGlob": "**"
   }
 }

@@ -4,10 +4,10 @@ import { styled } from "styled-components";
 import { CommentContext } from "./CommentsProvider";
 import UnstyledButton from "./UnstyledButton";
 
-function EditComment({ id, replyingTo, setIsEditing, username }) {
+function EditComment({ id, replyingTo, setIsEditing }) {
   const { comments, editComment } = useContext(CommentContext);
   const selectedComment = comments.find((comment) => comment.id === id);
-  const INITIAL_COMMENT = `@${replyingTo || username} ${selectedComment.content}`;
+  const INITIAL_COMMENT = replyingTo ? `@${replyingTo} ${selectedComment.content}` : selectedComment.content;
   const [editedComment, setEditedComment] = useState(INITIAL_COMMENT);
 
   function updatedComment() {
