@@ -4,7 +4,7 @@ import { CommentContext } from "./CommentsProvider";
 import Comment from "./Comment";
 function Comments() {
   const { comments } = useContext(CommentContext);
-  console.log(comments);
+
   return (
     <Wrapper>
       {comments &&

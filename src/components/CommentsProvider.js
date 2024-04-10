@@ -9,8 +9,6 @@ const INITIAL_COMMENTS = [...DATA[0].comments];
 function CommentsProvider({ children }) {
   const [comments, setComments] = useState(INITIAL_COMMENTS);
 
-  console.log(comments);
-
   function addComment(newComment, parentId, username) {
     const currentComment = {
       id: crypto.randomUUID(),
@@ -37,7 +35,31 @@ function CommentsProvider({ children }) {
       setComments(updatedComments);
     }
   }
-  return <CommentContext.Provider value={{ comments, addComment }}>{children}</CommentContext.Provider>;
+
+  function deleteComment(id) {
+    const updatedComments = comments.filter((comment) => comment.id !== id);
+    setComments(updatedComments);
+  }
+
+  function editComment(id, newContent) {
+    console.log(newContent);
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === id) {
+        return {
+          ...comment,
+          content: newContent,
+        };
+      }
+      return comment;
+    });
+    setComments(updatedComments);
+  }
+
+  return (
+    <CommentContext.Provider value={{ comments, addComment, deleteComment, editComment }}>
+      {children}
+    </CommentContext.Provider>
+  );
 }
 
 export default CommentsProvider;

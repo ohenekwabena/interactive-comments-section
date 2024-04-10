@@ -9,9 +9,11 @@ import Delete from "../../images/icon-delete.svg";
 import CommentReplies from "./CommentReplies";
 import AddComment from "./AddComment";
 import UnstyledButton from "./UnstyledButton";
+import EditComment from "./EditComment.js";
 
 function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const forwardedParentId = id;
   const currentUsername = DATA[0].currentUser.username;
   return (
@@ -25,8 +27,15 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
             <Duration>{createdAt}</Duration>
           </Head>
           <Content>
-            {replyingTo && <ReplyingTo>{`@${replyingTo}`}</ReplyingTo>} {content}
+            {isEditing ? (
+              <EditComment id={id} replyingTo={replyingTo} username={user.username} setIsEditing={setIsEditing} />
+            ) : (
+              <p>
+                {replyingTo && <ReplyingTo>@{replyingTo}</ReplyingTo>} {content}
+              </p>
+            )}
           </Content>
+
           <Rating>
             <UnstyledButton>
               <img src={Plus} alt="" />
@@ -43,7 +52,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
                   <img src={Delete} alt="" />
                   <p>Delete</p>
                 </DeleteButton>
-                <EditButton>
+                <EditButton onClick={() => setIsEditing(!isEditing)}>
                   <img src={Edit} alt="" />
                   <p>Edit</p>
                 </EditButton>
@@ -100,6 +109,7 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-overflow: ellipsis;
 
   @media (min-width: 29.688rem) {
     grid-column: 2 / 3;
@@ -114,10 +124,9 @@ const Name = styled.p`
 const Duration = styled.p`
   color: var(--grayish-blue);
   min-width: fit-content;
-  text-overflow: ellipsis;
 `;
 
-const Content = styled.p`
+const Content = styled.div`
   grid-row: 2 / 3;
   grid-column: 1 / -1;
   color: var(--grayish-blue);
@@ -159,7 +168,7 @@ const Rating = styled.div`
     align-items: center;
     justify-content: center;
     margin: 0.75rem 0;
-    min-height: 100px;
+    height: 100px;
   }
 `;
 
@@ -172,7 +181,6 @@ const Reply = styled(UnstyledButton)`
   font-weight: 600;
   cursor: pointer;
 `;
-
 const ReplyingTo = styled.span`
   color: var(--moderate-blue);
   font-weight: 700;
@@ -216,6 +224,14 @@ const DeleteButton = styled(UnstyledButton)`
   & img {
     transform: translateY(-1px);
   }
+
+  @media (min-width: 29.688rem) and (max-width: 35.75rem) {
+    & p {
+      display: none;
+    }
+    margin-right: 0.5rem;
+    margin-left: 4rem;
+  }
 `;
 
 const EditButton = styled(UnstyledButton)`
@@ -226,6 +242,13 @@ const EditButton = styled(UnstyledButton)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  @media (min-width: 29.688rem) and (max-width: 35.75rem) {
+    & p {
+      display: none;
+    }
+    margin-right: 0.5rem;
+  }
 `;
 
 const Verified = styled.span`

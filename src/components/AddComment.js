@@ -13,17 +13,21 @@ function AddComment({ username, isReplying, parentId, replying }) {
     if (replying) {
       addComment(userComment, parentId, username);
       isReplying(false);
-      setUserComment("");
+      setUserComment(" ");
       return;
     }
     addComment(userComment, null, username);
-    setUserComment("");
+    setUserComment(" ");
   }
 
   return (
     <Wrapper>
       <ReplyAvatar src={userData[0].currentUser.image.png} alt="" />
-      <ReplyText placeholder="Add a comment..." onChange={(e) => setUserComment(e.target.value)}></ReplyText>
+      <ReplyText
+        placeholder="Add a comment..."
+        onChange={(e) => setUserComment(e.target.value)}
+        value={userComment}
+      ></ReplyText>
       <Button onClick={postComment}>Send</Button>
     </Wrapper>
   );
@@ -31,7 +35,7 @@ function AddComment({ username, isReplying, parentId, replying }) {
 
 const Wrapper = styled.section`
   display: grid;
-  align-items: end;
+  align-items: center;
   grid-template: auto auto / auto 1fr auto;
   gap: 1rem;
   padding: 1rem;
@@ -42,13 +46,14 @@ const Wrapper = styled.section`
 
   @media (min-width: 29.688rem) {
     grid-template: auto 1fr / auto 1fr auto;
+    align-items: end;
   }
 `;
 
-const ReplyText = styled.textarea`
+export const ReplyText = styled.textarea`
   grid-column: 1 / -1;
   grid-row: 1 / 2;
-  height: 100px;
+  min-height: 100px;
   resize: none;
   padding: 1rem;
   border-radius: 0.5rem;
