@@ -1,5 +1,5 @@
 import { DATA } from "../data.js";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
@@ -11,6 +11,7 @@ import AddComment from "./AddComment";
 import UnstyledButton from "./UnstyledButton";
 import EditComment from "./EditComment.js";
 import DeleteComment from "./DeleteComment.js";
+import { CommentContext } from "./CommentsProvider.js";
 
 function Comment({ actualId, parentId, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
@@ -18,6 +19,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   const [confirmDelete, setConfirmDelete] = useState(false);
   const forwardedParentId = parentId === null ? actualId : parentId;
   const currentUsername = DATA[0].currentUser.username;
+  const { changeScore } = useContext(CommentContext);
 
   return (
     <>
@@ -40,11 +42,11 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
           </Content>
 
           <Rating>
-            <UnstyledButton>
+            <UnstyledButton onClick={() => changeScore(actualId, "up")}>
               <img src={Plus} alt="" />
             </UnstyledButton>
             <p>{score}</p>
-            <UnstyledButton>
+            <UnstyledButton onClick={() => changeScore(actualId, "down")}>
               <img src={Minus} alt="" />
             </UnstyledButton>
           </Rating>

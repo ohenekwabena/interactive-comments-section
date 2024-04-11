@@ -9,6 +9,7 @@ function AddComment({ username, isReplying, parentId, replying }) {
   const [userComment, setUserComment] = useState("");
 
   function postComment() {
+    if (userComment === "") return;
     if (replying) {
       addComment(userComment, parentId, username);
       isReplying(false);

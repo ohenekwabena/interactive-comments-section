@@ -67,17 +67,15 @@ function CommentsProvider({ children }) {
       }
 
       if (comment.replies.length > 0) {
-        for (const reply of comment.replies) {
-          if (reply.id === id) {
-            comment.replies.splice(comment.replies.indexOf(reply), 1);
+        if (comment.replies.length > 0) {
+          const replyIndex = comment.replies.findIndex((reply) => reply.id === id);
+          if (replyIndex !== -1) {
             return {
               ...comment,
               replies: [
-                ...comment.replies,
-                {
-                  ...reply,
-                  content: newContent,
-                },
+                ...comment.replies.slice(0, replyIndex),
+                { ...comment.replies[replyIndex], content: newContent },
+                ...comment.replies.slice(replyIndex + 1),
               ],
             };
           }
@@ -88,8 +86,40 @@ function CommentsProvider({ children }) {
     setComments(updatedComments);
   }
 
+  function changeScore(id, direction) {
+    const updatedComments = comments.map((comment) => {
+      if (comment.id === id) {
+        if (direction === "up") {
+          return {
+            ...comment,
+            score: comment.score + 1,
+          };
+        } else if (direction === "down") {
+          return {
+            ...comment,
+            score: Math.max(0, comment.score - 1),
+          };
+        }
+      }
+      if (comment.replies.length > 0) {
+        return {
+          ...comment,
+          replies: comment.replies.map((innerReply) =>
+            innerReply.id === id
+              ? { ...innerReply, score: Math.max(0, innerReply.score + (direction === "up" ? 1 : -1)) }
+              : innerReply
+          ),
+        };
+      }
+
+      return comment;
+    });
+
+    setComments(updatedComments);
+  }
+
   return (
-    <CommentContext.Provider value={{ comments, addComment, deleteComment, editComment }}>
+    <CommentContext.Provider value={{ comments, addComment, deleteComment, editComment, changeScore }}>
       {children}
     </CommentContext.Provider>
   );
