@@ -12,12 +12,13 @@ import UnstyledButton from "./UnstyledButton";
 import EditComment from "./EditComment.js";
 import DeleteComment from "./DeleteComment.js";
 
-function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
+function Comment({ actualId, parentId, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
-  const forwardedParentId = id;
+  const forwardedParentId = parentId === null ? actualId : parentId;
   const currentUsername = DATA[0].currentUser.username;
+
   return (
     <>
       <div>
@@ -30,7 +31,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
           </Head>
           <Content>
             {isEditing ? (
-              <EditComment id={id} replyingTo={replyingTo} username={user.username} setIsEditing={setIsEditing} />
+              <EditComment id={actualId} replyingTo={replyingTo} setIsEditing={setIsEditing} />
             ) : (
               <p>
                 {replyingTo && <ReplyingTo>@{replyingTo}</ReplyingTo>} {content}
@@ -67,14 +68,22 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
             )}
           </CurrentUserActions>
         </Wrapper>
-        {replying && <AddComment isReplying={setReplying} username={user.username} parentId={id} replying={replying} />}
+        {replying && (
+          <AddComment
+            isReplying={setReplying}
+            username={user.username}
+            parentId={forwardedParentId}
+            replying={replying}
+          />
+        )}
       </div>
       {replies && (
         <CommentReplies>
           {replies.map(({ id, content, createdAt, score, user, replies, replyingTo }) => (
             <Comment
               key={id}
-              id={forwardedParentId}
+              actualId={id}
+              parentId={forwardedParentId}
               content={content}
               createdAt={createdAt}
               score={score}
@@ -85,7 +94,7 @@ function Comment({ id, content, createdAt, score, user, replies, replyingTo }) {
           ))}
         </CommentReplies>
       )}
-      <DeleteComment id={id} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
+      <DeleteComment id={actualId} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
     </>
   );
 }

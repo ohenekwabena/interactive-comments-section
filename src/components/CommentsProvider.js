@@ -11,7 +11,7 @@ function CommentsProvider({ children }) {
 
   function addComment(newComment, parentId, username) {
     const currentComment = {
-      id: crypto.randomUUID(),
+      id: Math.floor(Math.random() * 1000),
       content: newComment,
       createdAt: "now",
       score: 0,
@@ -37,18 +37,51 @@ function CommentsProvider({ children }) {
   }
 
   function deleteComment(id) {
-    const updatedComments = comments.filter((comment) => comment.id !== id);
-    setComments(updatedComments);
+    const newComments = [...comments];
+
+    for (const element of newComments) {
+      if (element.id === id) {
+        newComments.splice(newComments.indexOf(element), 1);
+        break;
+      }
+      if (element.replies.length > 0) {
+        for (const reply of element.replies) {
+          if (reply.id === id) {
+            element.replies.splice(element.replies.indexOf(reply), 1);
+            break;
+          }
+        }
+      }
+    }
+    console.log(newComments);
+    setComments(newComments);
   }
 
   function editComment(id, newContent) {
-    console.log(newContent);
     const updatedComments = comments.map((comment) => {
       if (comment.id === id) {
         return {
           ...comment,
           content: newContent,
         };
+      }
+
+      if (comment.replies.length > 0) {
+        for (const reply of comment.replies) {
+          if (reply.id === id) {
+            comment.replies.splice(comment.replies.indexOf(reply), 1);
+            return {
+              ...comment,
+              replies: [
+                ...comment.replies,
+                {
+                  ...reply,
+                  content: newContent,
+                },
+              ],
+            };
+          }
+        }
       }
       return comment;
     });

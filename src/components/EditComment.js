@@ -6,11 +6,29 @@ import UnstyledButton from "./UnstyledButton";
 
 function EditComment({ id, replyingTo, setIsEditing }) {
   const { comments, editComment } = useContext(CommentContext);
-  const selectedComment = comments.find((comment) => comment.id === id);
-  const INITIAL_COMMENT = replyingTo ? `@${replyingTo} ${selectedComment.content}` : selectedComment.content;
+
+  let selectedComment;
+
+  for (const element of comments) {
+    if (element.id === id) {
+      selectedComment = element;
+      break;
+    }
+    if (element.replies.length > 0) {
+      for (const reply of element.replies) {
+        if (reply.id === id) {
+          selectedComment = reply;
+          break;
+        }
+      }
+    }
+  }
+
+  const INITIAL_COMMENT = selectedComment.content;
   const [editedComment, setEditedComment] = useState(INITIAL_COMMENT);
 
   function updatedComment() {
+    console.log(editedComment);
     editComment(id, editedComment);
     setEditedComment("");
     setIsEditing(false);

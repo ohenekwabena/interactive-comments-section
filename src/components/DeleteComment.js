@@ -1,8 +1,18 @@
 import { styled } from "styled-components";
 import { Root, Portal, Overlay, Content } from "@radix-ui/react-dialog";
 import UnstyledButton from "./UnstyledButton";
+import { CommentContext } from "./CommentsProvider";
+import { useContext } from "react";
 function DeleteComment({ id, setConfirmDelete, confirmDelete }) {
+  const { deleteComment } = useContext(CommentContext);
+
   function cancelDelete() {
+    setConfirmDelete(false);
+  }
+
+  function handleDeleteComment(id) {
+    console.log(id);
+    deleteComment(id);
     setConfirmDelete(false);
   }
 
@@ -15,7 +25,7 @@ function DeleteComment({ id, setConfirmDelete, confirmDelete }) {
             <p>Are you sure you want to delete this comment?This will remove the comment and can't be undone.</p>
             <Actions>
               <CancelButton onClick={cancelDelete}>No, cancel</CancelButton>
-              <DeleteButton>Yes, delete</DeleteButton>
+              <DeleteButton onClick={() => handleDeleteComment(id)}>Yes, delete</DeleteButton>
             </Actions>
           </ModalContent>
         </ModalWrapper>

@@ -12,7 +12,8 @@ function Comments() {
         comments.map(({ id, content, createdAt, score, user, replies }) => (
           <Comment
             key={id}
-            id={id}
+            actualId={id}
+            parentId={null}
             content={content}
             createdAt={createdAt}
             score={score}

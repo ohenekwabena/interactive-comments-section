@@ -8,7 +8,6 @@ function AddComment({ username, isReplying, parentId, replying }) {
   const { addComment } = useContext(CommentContext);
   const [userComment, setUserComment] = useState("");
 
-  console.log(parentId);
   function postComment() {
     if (replying) {
       addComment(userComment, parentId, username);
