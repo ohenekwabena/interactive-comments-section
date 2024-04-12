@@ -9,7 +9,11 @@ function AddComment({ username, isReplying, parentId, replying }) {
   const [userComment, setUserComment] = useState("");
 
   function postComment() {
-    if (userComment === "") return;
+    if (userComment === "") {
+      isReplying(false);
+      return;
+    }
+
     if (replying) {
       addComment(userComment, parentId, username);
       isReplying(false);
@@ -68,7 +72,7 @@ export const ReplyText = styled.textarea`
 
   &:focus {
     outline: none;
-    border: 1px solid var(--moderate-blue);
+    border: 1.5px solid var(--moderate-blue);
   }
 
   @media (min-width: 29.688rem) {

@@ -11,7 +11,6 @@ function DeleteComment({ id, setConfirmDelete, confirmDelete }) {
   }
 
   function handleDeleteComment(id) {
-    console.log(id);
     deleteComment(id);
     setConfirmDelete(false);
   }
@@ -22,7 +21,7 @@ function DeleteComment({ id, setConfirmDelete, confirmDelete }) {
         <ModalWrapper>
           <ModalContent>
             <h2>Delete comment</h2>
-            <p>Are you sure you want to delete this comment?This will remove the comment and can't be undone.</p>
+            <p>Are you sure you want to delete this comment? This will remove the comment and can't be undone.</p>
             <Actions>
               <CancelButton onClick={cancelDelete}>No, cancel</CancelButton>
               <DeleteButton onClick={() => handleDeleteComment(id)}>Yes, delete</DeleteButton>

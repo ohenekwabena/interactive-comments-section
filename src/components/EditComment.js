@@ -28,6 +28,12 @@ function EditComment({ id, replyingTo, setIsEditing }) {
   const [editedComment, setEditedComment] = useState(INITIAL_COMMENT);
 
   function updatedComment() {
+    if (editedComment === "") {
+      editComment(id, INITIAL_COMMENT);
+      setIsEditing(false);
+      return;
+    }
+
     editComment(id, editedComment);
     setEditedComment("");
     setIsEditing(false);
