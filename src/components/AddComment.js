@@ -10,7 +10,8 @@ function AddComment({ username, isReplying, parentId, replying }) {
 
   function postComment() {
     if (userComment === "") {
-      isReplying(false);
+      if (replying) isReplying(false);
+
       return;
     }
 

@@ -1,13 +1,22 @@
 // CommentContext.js
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { DATA } from "../data";
 
 export const CommentContext = createContext();
 
 const INITIAL_COMMENTS = [...DATA[0].comments];
 
+function getInitialState() {
+  const comments = localStorage.getItem("comments");
+  return comments ? JSON.parse(comments) : INITIAL_COMMENTS;
+}
+
 function CommentsProvider({ children }) {
-  const [comments, setComments] = useState(INITIAL_COMMENTS);
+  const [comments, setComments] = useState(getInitialState);
+
+  useEffect(() => {
+    localStorage.setItem("comments", JSON.stringify(comments));
+  }, [comments]);
 
   function addComment(newComment, parentId, username) {
     const currentComment = {
