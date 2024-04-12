@@ -125,7 +125,6 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  overflow: hidden;
 
   @media (min-width: 29.688rem) {
     grid-column: 2 / 3;
@@ -139,7 +138,7 @@ const Name = styled.p`
 `;
 const Duration = styled.p`
   color: var(--grayish-blue);
-  min-width: fit-content;
+  /* min-width: fit-content; */
   display: flex;
   flex-wrap: wrap;
 `;
