@@ -28,7 +28,6 @@ function EditComment({ id, replyingTo, setIsEditing }) {
   const [editedComment, setEditedComment] = useState(INITIAL_COMMENT);
 
   function updatedComment() {
-    console.log(editedComment);
     editComment(id, editedComment);
     setEditedComment("");
     setIsEditing(false);
@@ -62,6 +61,10 @@ const Button = styled(UnstyledButton)`
   font-family: "Rubik";
   text-transform: uppercase;
   cursor: pointer;
+
+  &:hover {
+    background: var(--light-grayish-blue);
+  }
 
   grid-column: 2 / 3;
   grid-row: 2 / 3;

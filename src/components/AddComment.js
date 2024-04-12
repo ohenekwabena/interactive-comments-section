@@ -66,6 +66,11 @@ export const ReplyText = styled.textarea`
     font-size: 1rem;
   }
 
+  &:focus {
+    outline: none;
+    border: 1px solid var(--moderate-blue);
+  }
+
   @media (min-width: 29.688rem) {
     grid-column: 2 / 3;
     grid-row: 1 / 3;
@@ -92,6 +97,10 @@ const Button = styled(UnstyledButton)`
   font-family: "Rubik";
   text-transform: uppercase;
   cursor: pointer;
+
+  &:hover {
+    background: var(--light-grayish-blue);
+  }
 
   @media (min-width: 29.688rem) {
     grid-column: 3 / 4;

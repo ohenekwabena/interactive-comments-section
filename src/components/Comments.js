@@ -5,11 +5,12 @@ import Comment from "./Comment";
 function Comments() {
   const { comments } = useContext(CommentContext);
 
+  const sortedComments = comments.sort((a, b) => b.score - a.score);
   return (
     <Wrapper>
-      {comments &&
-        comments.length > 0 &&
-        comments.map(({ id, content, createdAt, score, user, replies }) => (
+      {sortedComments &&
+        sortedComments.length > 0 &&
+        sortedComments.map(({ id, content, createdAt, score, user, replies }) => (
           <Comment
             key={id}
             actualId={id}

@@ -19,7 +19,9 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   const [confirmDelete, setConfirmDelete] = useState(false);
   const forwardedParentId = parentId === null ? actualId : parentId;
   const currentUsername = DATA[0].currentUser.username;
-  const { changeScore } = useContext(CommentContext);
+  const { changeScore, updateTimeSincePosted } = useContext(CommentContext);
+
+  const timeSincePosted = updateTimeSincePosted(createdAt);
 
   return (
     <>
@@ -29,7 +31,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
             <Avatar src={user?.image.png} alt="" />
             <Name>{user?.username}</Name>
             {currentUsername === user.username && <Verified>you</Verified>}
-            <Duration>{createdAt}</Duration>
+            <Duration>{timeSincePosted}</Duration>
           </Head>
           <Content>
             {isEditing ? (
@@ -138,7 +140,8 @@ const Name = styled.p`
 const Duration = styled.p`
   color: var(--grayish-blue);
   min-width: fit-content;
-  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 const Content = styled.div`
@@ -182,7 +185,7 @@ const Rating = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0.75rem 0;
+    /* margin: 0.75rem 0; */
     height: 100px;
   }
 `;
@@ -240,6 +243,13 @@ const DeleteButton = styled(UnstyledButton)`
     transform: translateY(-1px);
   }
 
+  &:hover,
+  &:focus,
+  img:hover,
+  img:focus {
+    color: var(--pale-red);
+  }
+
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
     & p {
       display: none;
@@ -257,6 +267,10 @@ const EditButton = styled(UnstyledButton)`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  &:hover {
+    color: var(--light-grayish-blue);
+  }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
     & p {
