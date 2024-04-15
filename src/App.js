@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const MaxWidthWrapper = styled.div`
+  position: relative;
   max-width: 700px;
 `;
 

@@ -11,7 +11,6 @@ function AddComment({ username, isReplying, parentId, replying }) {
   function postComment() {
     if (userComment === "") {
       if (replying) isReplying(false);
-
       return;
     }
 

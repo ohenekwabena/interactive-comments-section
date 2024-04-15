@@ -29,4 +29,5 @@ function Comments() {
 const Wrapper = styled.section`
   margin-bottom: 1rem;
 `;
+
 export default Comments;
