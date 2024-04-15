@@ -30,7 +30,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Github repo](https://github.com/ohenekwabena/interactive-comments-section)
-- Live Site URL: [Vercel app](https://your-live-site-url.com)
+- Live Site URL: [Vercel app](https://interactive-comments-section-flame.vercel.app/)
 
 ### Built with
 
