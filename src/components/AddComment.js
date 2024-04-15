@@ -1,5 +1,6 @@
 import { Avatar } from "./Comment.js";
 import { DATA as userData } from "../data.js";
+import { motion } from "framer-motion";
 import { styled } from "styled-components";
 import UnstyledButton from "./UnstyledButton.js";
 import { useContext, useState } from "react";
@@ -25,9 +26,10 @@ function AddComment({ username, isReplying, parentId, replying }) {
   }
 
   return (
-    <Wrapper>
+    <Wrapper layout={true}>
       <ReplyAvatar src={userData[0].currentUser.image.png} alt="" />
       <ReplyText
+        layout={true}
         placeholder="Add a comment..."
         onChange={(e) => setUserComment(e.target.value)}
         value={userComment}
@@ -37,7 +39,7 @@ function AddComment({ username, isReplying, parentId, replying }) {
   );
 }
 
-const Wrapper = styled.section`
+const Wrapper = styled(motion.section)`
   display: grid;
   align-items: center;
   grid-template: auto auto / auto 1fr auto;
@@ -54,7 +56,7 @@ const Wrapper = styled.section`
   }
 `;
 
-export const ReplyText = styled.textarea`
+export const ReplyText = styled(motion.textarea)`
   grid-column: 1 / -1;
   grid-row: 1 / 2;
   min-height: 100px;

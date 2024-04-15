@@ -1,7 +1,12 @@
 import { styled } from "styled-components";
+import { LayoutGroup } from "framer-motion";
 
 export default function CommentReplies({ children }) {
-  return <Wrapper>{children}</Wrapper>;
+  return (
+    <LayoutGroup>
+      <Wrapper>{children}</Wrapper>
+    </LayoutGroup>
+  );
 }
 
 const Wrapper = styled.section`

@@ -19,7 +19,7 @@ function App() {
 const Wrapper = styled.div`
   display: grid;
   place-content: center;
-  min-height: 100dvh;
+  height: 100dvh;
   padding: 1rem;
   background-color: var(--very-light-gray);
 `;

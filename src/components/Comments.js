@@ -8,8 +8,9 @@ function Comments() {
   const commentRef = useRef(null);
 
   useEffect(() => {
-    window.scroll({ top: 0, behavior: "smooth" });
-    if (hasScrolled) commentRef.current.scrollIntoView({ behavior: "smooth" });
+    if (!hasScrolled) window.scroll({ top: 0, behavior: "smooth" });
+
+    commentRef.current.scrollIntoView({ behavior: "smooth" });
     setHasScrolled(true);
   }, [comments, hasScrolled]);
 
