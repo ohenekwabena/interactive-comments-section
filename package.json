@@ -1,11 +1,11 @@
 {
   "name": "interactive-comments-section",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build"
+    "build": "parcel build src/index.js"
   },
   "devDependencies": {
     "parcel": "^2.12.0",
