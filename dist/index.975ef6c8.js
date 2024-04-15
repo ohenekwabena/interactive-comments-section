@@ -30018,224 +30018,212 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Head, {
+                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Head, {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Avatar, {
+                                    src: user?.image.png,
+                                    alt: ""
+                                }, void 0, false, {
+                                    fileName: "src/components/Comment.js",
+                                    lineNumber: 31,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Name, {
+                                    children: user?.username
+                                }, void 0, false, {
+                                    fileName: "src/components/Comment.js",
+                                    lineNumber: 32,
+                                    columnNumber: 13
+                                }, this),
+                                currentUsername === user.username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Verified, {
+                                    children: "you"
+                                }, void 0, false, {
+                                    fileName: "src/components/Comment.js",
+                                    lineNumber: 33,
+                                    columnNumber: 51
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Duration, {
+                                    children: timeSincePosted
+                                }, void 0, false, {
+                                    fileName: "src/components/Comment.js",
+                                    lineNumber: 34,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/Comment.js",
+                            lineNumber: 30,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Content, {
+                            children: isEditing ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _editCommentJsDefault.default), {
+                                id: actualId,
+                                replyingTo: replyingTo,
+                                setIsEditing: setIsEditing
+                            }, void 0, false, {
+                                fileName: "src/components/Comment.js",
+                                lineNumber: 38,
+                                columnNumber: 15
+                            }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                 children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Avatar, {
-                                        src: user?.image.png,
+                                    replyingTo && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(ReplyingTo, {
+                                        children: [
+                                            "@",
+                                            replyingTo
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/Comment.js",
+                                        lineNumber: 41,
+                                        columnNumber: 32
+                                    }, this),
+                                    " ",
+                                    content
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/Comment.js",
+                                lineNumber: 40,
+                                columnNumber: 15
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "src/components/Comment.js",
+                            lineNumber: 36,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Rating, {
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
+                                    onClick: ()=>changeScore(actualId, "up"),
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                        src: (0, _iconPlusSvgDefault.default),
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 31,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Name, {
-                                        children: user?.username
-                                    }, void 0, false, {
-                                        fileName: "src/components/Comment.js",
-                                        lineNumber: 32,
-                                        columnNumber: 13
-                                    }, this),
-                                    currentUsername === user.username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Verified, {
-                                        children: "you"
-                                    }, void 0, false, {
-                                        fileName: "src/components/Comment.js",
-                                        lineNumber: 33,
-                                        columnNumber: 51
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Duration, {
-                                        children: timeSincePosted
-                                    }, void 0, false, {
-                                        fileName: "src/components/Comment.js",
-                                        lineNumber: 34,
-                                        columnNumber: 13
+                                        lineNumber: 48,
+                                        columnNumber: 15
                                     }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/Comment.js",
-                                lineNumber: 30,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Content, {
-                                children: isEditing ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _editCommentJsDefault.default), {
-                                    id: actualId,
-                                    replyingTo: replyingTo,
-                                    setIsEditing: setIsEditing
                                 }, void 0, false, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 38,
-                                    columnNumber: 15
-                                }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                    children: [
-                                        replyingTo && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(ReplyingTo, {
-                                            children: [
-                                                "@",
-                                                replyingTo
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 41,
-                                            columnNumber: 32
-                                        }, this),
-                                        " ",
-                                        content
-                                    ]
-                                }, void 0, true, {
+                                    lineNumber: 47,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                    children: score
+                                }, void 0, false, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 40,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "src/components/Comment.js",
-                                lineNumber: 36,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Rating, {
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
-                                        onClick: ()=>changeScore(actualId, "up"),
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                            src: (0, _iconPlusSvgDefault.default),
-                                            alt: ""
-                                        }, void 0, false, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 48,
-                                            columnNumber: 15
-                                        }, this)
+                                    lineNumber: 50,
+                                    columnNumber: 13
+                                }, this),
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
+                                    onClick: ()=>changeScore(actualId, "down"),
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                        src: (0, _iconMinusSvgDefault.default),
+                                        alt: ""
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 47,
-                                        columnNumber: 13
+                                        lineNumber: 52,
+                                        columnNumber: 15
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "src/components/Comment.js",
+                                    lineNumber: 51,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/Comment.js",
+                            lineNumber: 46,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CurrentUserActions, {
+                            children: user.username === currentUsername ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(DeleteButton, {
+                                        onClick: ()=>setConfirmDelete(true),
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                                src: (0, _iconDeleteSvgDefault.default),
+                                                alt: ""
+                                            }, void 0, false, {
+                                                fileName: "src/components/Comment.js",
+                                                lineNumber: 59,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                children: "Delete"
+                                            }, void 0, false, {
+                                                fileName: "src/components/Comment.js",
+                                                lineNumber: 60,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/Comment.js",
+                                        lineNumber: 58,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(EditButton, {
+                                        onClick: ()=>setIsEditing(!isEditing),
+                                        children: [
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                                src: (0, _iconEditSvgDefault.default),
+                                                alt: ""
+                                            }, void 0, false, {
+                                                fileName: "src/components/Comment.js",
+                                                lineNumber: 63,
+                                                columnNumber: 19
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                                children: "Edit"
+                                            }, void 0, false, {
+                                                fileName: "src/components/Comment.js",
+                                                lineNumber: 64,
+                                                columnNumber: 19
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/components/Comment.js",
+                                        lineNumber: 62,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Reply, {
+                                onClick: ()=>setReplying(!replying),
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                        src: (0, _iconReplySvgDefault.default),
+                                        alt: ""
+                                    }, void 0, false, {
+                                        fileName: "src/components/Comment.js",
+                                        lineNumber: 69,
+                                        columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                        children: score
+                                        children: "Reply"
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 50,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
-                                        onClick: ()=>changeScore(actualId, "down"),
-                                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                            src: (0, _iconMinusSvgDefault.default),
-                                            alt: ""
-                                        }, void 0, false, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 52,
-                                            columnNumber: 15
-                                        }, this)
-                                    }, void 0, false, {
-                                        fileName: "src/components/Comment.js",
-                                        lineNumber: 51,
-                                        columnNumber: 13
+                                        lineNumber: 70,
+                                        columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 46,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CurrentUserActions, {
-                                children: user.username === currentUsername ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(DeleteButton, {
-                                            onClick: ()=>setConfirmDelete(true),
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                                    src: (0, _iconDeleteSvgDefault.default),
-                                                    alt: ""
-                                                }, void 0, false, {
-                                                    fileName: "src/components/Comment.js",
-                                                    lineNumber: 59,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                    children: "Delete"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/Comment.js",
-                                                    lineNumber: 60,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 58,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(EditButton, {
-                                            onClick: ()=>setIsEditing(!isEditing),
-                                            children: [
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                                    src: (0, _iconEditSvgDefault.default),
-                                                    alt: ""
-                                                }, void 0, false, {
-                                                    fileName: "src/components/Comment.js",
-                                                    lineNumber: 63,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                    children: "Edit"
-                                                }, void 0, false, {
-                                                    fileName: "src/components/Comment.js",
-                                                    lineNumber: 64,
-                                                    columnNumber: 19
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 62,
-                                            columnNumber: 17
-                                        }, this)
-                                    ]
-                                }, void 0, true) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Reply, {
-                                    onClick: ()=>setReplying(!replying),
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-                                            src: (0, _iconReplySvgDefault.default),
-                                            alt: ""
-                                        }, void 0, false, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 69,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                            children: "Reply"
-                                        }, void 0, false, {
-                                            fileName: "src/components/Comment.js",
-                                            lineNumber: 70,
-                                            columnNumber: 17
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "src/components/Comment.js",
-                                    lineNumber: 68,
-                                    columnNumber: 15
-                                }, this)
-                            }, void 0, false, {
-                                fileName: "src/components/Comment.js",
-                                lineNumber: 55,
-                                columnNumber: 11
+                                lineNumber: 68,
+                                columnNumber: 15
                             }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/Comment.js",
-                        lineNumber: 29,
-                        columnNumber: 9
-                    }, this),
-                    replying && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addCommentDefault.default), {
-                        isReplying: setReplying,
-                        username: user.username,
-                        parentId: forwardedParentId,
-                        replying: replying
-                    }, void 0, false, {
-                        fileName: "src/components/Comment.js",
-                        lineNumber: 76,
-                        columnNumber: 11
-                    }, this)
-                ]
-            }, void 0, true, {
+                        }, void 0, false, {
+                            fileName: "src/components/Comment.js",
+                            lineNumber: 55,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/Comment.js",
+                    lineNumber: 29,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
                 fileName: "src/components/Comment.js",
                 lineNumber: 28,
                 columnNumber: 7
@@ -30252,12 +30240,22 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                         replyingTo: replyingTo
                     }, id, false, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 87,
+                        lineNumber: 79,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 85,
+                lineNumber: 77,
+                columnNumber: 9
+            }, this),
+            replying && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addCommentDefault.default), {
+                isReplying: setReplying,
+                username: user.username,
+                parentId: forwardedParentId,
+                replying: replying
+            }, void 0, false, {
+                fileName: "src/components/Comment.js",
+                lineNumber: 94,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteCommentJsDefault.default), {
@@ -30369,6 +30367,10 @@ const Reply = (0, _styledComponentsDefault.default)((0, _unstyledButtonDefault.d
   color: var(--moderate-blue);
   font-weight: 600;
   cursor: pointer;
+
+  &:hover {
+    color: var(--light-grayish-blue);
+  }
 `;
 _c7 = Reply;
 const ReplyingTo = (0, _styledComponentsDefault.default).span`
@@ -30382,7 +30384,7 @@ function Avatar({ src, alt }) {
         alt: alt
     }, void 0, false, {
         fileName: "src/components/Comment.js",
-        lineNumber: 207,
+        lineNumber: 212,
         columnNumber: 10
     }, this);
 }
@@ -30449,6 +30451,7 @@ const EditButton = (0, _styledComponentsDefault.default)((0, _unstyledButtonDefa
 
   &:hover {
     color: var(--light-grayish-blue);
+    filter: brightness(0.8);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {

@@ -72,14 +72,6 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
             )}
           </CurrentUserActions>
         </Wrapper>
-        {replying && (
-          <AddComment
-            isReplying={setReplying}
-            username={user.username}
-            parentId={forwardedParentId}
-            replying={replying}
-          />
-        )}
       </div>
       {replies && (
         <CommentReplies>
@@ -97,6 +89,14 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
             />
           ))}
         </CommentReplies>
+      )}
+      {replying && (
+        <AddComment
+          isReplying={setReplying}
+          username={user.username}
+          parentId={forwardedParentId}
+          replying={replying}
+        />
       )}
       <DeleteComment id={actualId} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
     </>
@@ -197,7 +197,12 @@ const Reply = styled(UnstyledButton)`
   color: var(--moderate-blue);
   font-weight: 600;
   cursor: pointer;
+
+  &:hover {
+    color: var(--light-grayish-blue);
+  }
 `;
+
 const ReplyingTo = styled.span`
   color: var(--moderate-blue);
   font-weight: 700;
@@ -269,6 +274,7 @@ const EditButton = styled(UnstyledButton)`
 
   &:hover {
     color: var(--light-grayish-blue);
+    filter: brightness(0.8);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
