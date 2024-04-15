@@ -1,5 +1,5 @@
 import { DATA } from "../data.js";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
@@ -16,6 +16,7 @@ import { CommentContext } from "./CommentsProvider.js";
 function Comment({ actualId, parentId, content, createdAt, score, user, replies, replyingTo }) {
   const [replying, setReplying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const forwardedParentId = parentId === null ? actualId : parentId;
   const currentUsername = DATA[0].currentUser.username;
@@ -23,10 +24,17 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
 
   const timeSincePosted = updateTimeSincePosted(createdAt);
 
+  const commentRef = useRef(null);
+
+  useEffect(() => {
+    if (hasScrolled) commentRef.current.scrollIntoView({ behavior: "smooth" });
+    setHasScrolled(true);
+  }, [replying, isEditing, hasScrolled]);
+
   return (
     <>
       <div>
-        <Wrapper>
+        <Wrapper ref={commentRef}>
           <Head>
             <Avatar src={user?.image.png} alt="" />
             <Name>{user?.username}</Name>
@@ -42,7 +50,6 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
               </p>
             )}
           </Content>
-
           <Rating>
             <UnstyledButton onClick={() => changeScore(actualId, "up")}>
               <img src={Plus} alt="" />
@@ -70,11 +77,19 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                 <p>Reply</p>
               </Reply>
             )}
-          </CurrentUserActions>
+          </CurrentUserActions>{" "}
         </Wrapper>
+        {replying && (
+          <AddComment
+            isReplying={setReplying}
+            username={user.username}
+            parentId={forwardedParentId}
+            replying={replying}
+          />
+        )}
       </div>
       {replies && (
-        <CommentReplies>
+        <CommentReplies ref={commentRef}>
           {replies.map(({ id, content, createdAt, score, user, replies, replyingTo }) => (
             <Comment
               key={id}
@@ -90,14 +105,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
           ))}
         </CommentReplies>
       )}
-      {replying && (
-        <AddComment
-          isReplying={setReplying}
-          username={user.username}
-          parentId={forwardedParentId}
-          replying={replying}
-        />
-      )}
+
       <DeleteComment id={actualId} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
     </>
   );
