@@ -1,6 +1,6 @@
 import { DATA } from "../data.js";
 import { useContext, useEffect, useRef, useState } from "react";
-import { motion, LayoutGroup } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
@@ -28,9 +28,11 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   const commentRef = useRef(null);
 
   useEffect(() => {
-    if (hasScrolled) commentRef.current.scrollIntoView({ behavior: "smooth" });
+    if (!hasScrolled) window.scroll({ top: 0, behavior: "smooth" });
+
+    commentRef.current.scrollIntoView({ behavior: "smooth" });
     setHasScrolled(true);
-  }, [replying, isEditing, hasScrolled]);
+  }, [content, isEditing, replying]);
 
   return (
     <>
@@ -90,7 +92,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
         )}
       </div>
       {replies && (
-        <CommentReplies ref={commentRef}>
+        <CommentReplies>
           {replies.map(({ id, content, createdAt, score, user, replies, replyingTo }) => (
             <Comment
               key={id}

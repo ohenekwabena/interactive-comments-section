@@ -9,10 +9,9 @@ function Comments() {
 
   useEffect(() => {
     if (!hasScrolled) window.scroll({ top: 0, behavior: "smooth" });
-
     commentRef.current.scrollIntoView({ behavior: "smooth" });
     setHasScrolled(true);
-  }, [comments, hasScrolled]);
+  }, [comments]);
 
   const sortedComments = comments.sort((a, b) => b.score - a.score);
   return (

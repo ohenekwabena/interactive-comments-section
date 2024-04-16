@@ -27440,8 +27440,7 @@ function Comments() {
         });
         setHasScrolled(true);
     }, [
-        comments,
-        hasScrolled
+        comments
     ]);
     const sortedComments = comments.sort((a, b)=>b.score - a.score);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
@@ -27456,12 +27455,12 @@ function Comments() {
                 replies: replies
             }, id, false, {
                 fileName: "src/components/Comments.js",
-                lineNumber: 23,
+                lineNumber: 22,
                 columnNumber: 11
             }, this))
     }, void 0, false, {
         fileName: "src/components/Comments.js",
-        lineNumber: 19,
+        lineNumber: 18,
         columnNumber: 5
     }, this);
 }
@@ -30043,14 +30042,18 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
     const timeSincePosted = updateTimeSincePosted(createdAt);
     const commentRef = (0, _react.useRef)(null);
     (0, _react.useEffect)(()=>{
-        if (hasScrolled) commentRef.current.scrollIntoView({
+        if (!hasScrolled) window.scroll({
+            top: 0,
+            behavior: "smooth"
+        });
+        commentRef.current.scrollIntoView({
             behavior: "smooth"
         });
         setHasScrolled(true);
     }, [
-        replying,
+        content,
         isEditing,
-        hasScrolled
+        replying
     ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
@@ -30066,34 +30069,34 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 40,
+                                        lineNumber: 42,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Name, {
                                         children: user?.username
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 41,
+                                        lineNumber: 43,
                                         columnNumber: 13
                                     }, this),
                                     currentUsername === user.username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Verified, {
                                         children: "you"
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 42,
+                                        lineNumber: 44,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Duration, {
                                         children: timeSincePosted
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 43,
+                                        lineNumber: 45,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 39,
+                                lineNumber: 41,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Content, {
@@ -30103,7 +30106,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                     setIsEditing: setIsEditing
                                 }, void 0, false, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 47,
+                                    lineNumber: 49,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                     children: [
@@ -30114,7 +30117,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 50,
+                                            lineNumber: 52,
                                             columnNumber: 32
                                         }, this),
                                         " ",
@@ -30122,12 +30125,12 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 49,
+                                    lineNumber: 51,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 45,
+                                lineNumber: 47,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Rating, {
@@ -30139,19 +30142,19 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 56,
+                                            lineNumber: 58,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 55,
+                                        lineNumber: 57,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                         children: score
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 58,
+                                        lineNumber: 60,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
@@ -30161,18 +30164,18 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 60,
+                                            lineNumber: 62,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 59,
+                                        lineNumber: 61,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 54,
+                                lineNumber: 56,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CurrentUserActions, {
@@ -30186,20 +30189,20 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                                     alt: ""
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 67,
+                                                    lineNumber: 69,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                     children: "Delete"
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 68,
+                                                    lineNumber: 70,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 66,
+                                            lineNumber: 68,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(EditButton, {
@@ -30210,20 +30213,20 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                                     alt: ""
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 71,
+                                                    lineNumber: 73,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                     children: "Edit"
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 72,
+                                                    lineNumber: 74,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 70,
+                                            lineNumber: 72,
                                             columnNumber: 17
                                         }, this)
                                     ]
@@ -30235,31 +30238,31 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 77,
+                                            lineNumber: 79,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                             children: "Reply"
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 78,
+                                            lineNumber: 80,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 76,
+                                    lineNumber: 78,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 63,
+                                lineNumber: 65,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 38,
+                        lineNumber: 40,
                         columnNumber: 9
                     }, this),
                     replying && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addCommentDefault.default), {
@@ -30269,17 +30272,16 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                         replying: replying
                     }, void 0, false, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 84,
+                        lineNumber: 86,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 37,
+                lineNumber: 39,
                 columnNumber: 7
             }, this),
             replies && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _commentRepliesDefault.default), {
-                ref: commentRef,
                 children: replies.map(({ id, content, createdAt, score, user, replies, replyingTo })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Comment, {
                         actualId: id,
                         parentId: forwardedParentId,
@@ -30291,12 +30293,12 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                         replyingTo: replyingTo
                     }, id, false, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 95,
+                        lineNumber: 97,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 93,
+                lineNumber: 95,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteCommentJsDefault.default), {
@@ -30305,7 +30307,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                 confirmDelete: confirmDelete
             }, void 0, false, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 110,
+                lineNumber: 112,
                 columnNumber: 7
             }, this)
         ]
@@ -30425,7 +30427,7 @@ function Avatar({ src, alt }) {
         alt: alt
     }, void 0, false, {
         fileName: "src/components/Comment.js",
-        lineNumber: 221,
+        lineNumber: 223,
         columnNumber: 10
     }, this);
 }
