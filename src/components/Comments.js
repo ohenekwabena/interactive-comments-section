@@ -36,13 +36,17 @@ function Comments() {
 
 const Wrapper = styled.section`
   margin-bottom: 1rem;
-  height: 80dvh;
+  height: 60dvh;
   overflow-y: scroll;
   -ms-overflow-style: none;
   scrollbar-width: none;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (min-width: 29.688rem) {
+    height: 70dvh;
   }
 `;
 

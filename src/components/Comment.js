@@ -1,6 +1,5 @@
 import { DATA } from "../data.js";
 import { useContext, useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import Plus from "../../images/icon-plus.svg";
 import Minus from "../../images/icon-minus.svg";
@@ -114,7 +113,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   );
 }
 
-const Wrapper = styled(motion.article)`
+const Wrapper = styled.article`
   display: grid;
   margin-top: 1rem;
   grid-template: 40px 1fr 40px / auto 1fr auto;
@@ -154,7 +153,7 @@ const Duration = styled.p`
   flex-wrap: wrap;
 `;
 
-const Content = styled(motion.div)`
+const Content = styled.div`
   grid-row: 2 / 3;
   grid-column: 1 / -1;
   color: var(--grayish-blue);

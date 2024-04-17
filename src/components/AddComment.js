@@ -1,6 +1,5 @@
 import { Avatar } from "./Comment.js";
 import { DATA as userData } from "../data.js";
-import { motion } from "framer-motion";
 import { styled } from "styled-components";
 import UnstyledButton from "./UnstyledButton.js";
 import { useContext, useState } from "react";
@@ -39,7 +38,7 @@ function AddComment({ username, isReplying, parentId, replying }) {
   );
 }
 
-const Wrapper = styled(motion.section)`
+const Wrapper = styled.section`
   display: grid;
   align-items: center;
   grid-template: auto auto / auto 1fr auto;
@@ -56,7 +55,7 @@ const Wrapper = styled(motion.section)`
   }
 `;
 
-export const ReplyText = styled(motion.textarea)`
+export const ReplyText = styled.textarea`
   grid-column: 1 / -1;
   grid-row: 1 / 2;
   min-height: 100px;

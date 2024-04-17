@@ -19,14 +19,16 @@ function App() {
 const Wrapper = styled.div`
   display: grid;
   place-content: center;
-  height: 100dvh;
-  padding: 1rem;
   background-color: var(--very-light-gray);
 `;
 
 const MaxWidthWrapper = styled.div`
   position: relative;
+  padding: 1rem;
   max-width: 700px;
+  height: 100dvh;
+  display: grid;
+  place-content: center;
 `;
 
 export default App;
