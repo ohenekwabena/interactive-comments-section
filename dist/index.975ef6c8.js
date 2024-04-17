@@ -27480,7 +27480,7 @@ const Wrapper = (0, _styledComponents.styled).section`
   }
 
   @media (min-width: 29.688rem) {
-    height: 70dvh;
+    height: 75dvh;
   }
 `;
 _c1 = Wrapper;

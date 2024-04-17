@@ -46,7 +46,7 @@ const Wrapper = styled.section`
   }
 
   @media (min-width: 29.688rem) {
-    height: 70dvh;
+    height: 75dvh;
   }
 `;
 
