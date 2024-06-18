@@ -28,10 +28,9 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
 
   useEffect(() => {
     if (!hasScrolled) window.scroll({ top: 0, behavior: "smooth" });
-
     commentRef.current.scrollIntoView({ behavior: "smooth" });
     setHasScrolled(true);
-  }, [content, isEditing, replying]);
+  }, [content, isEditing, replying, hasScrolled]);
 
   return (
     <>
@@ -170,7 +169,7 @@ const Rating = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0 0.75rem;
   border-radius: 8px;
   color: var(--light-grayish-blue);
@@ -184,6 +183,7 @@ const Rating = styled.div`
   & ${UnstyledButton} {
     display: flex;
     align-items: center;
+    padding: 0.5rem;
     cursor: pointer;
   }
 
@@ -210,6 +210,10 @@ const Reply = styled(UnstyledButton)`
 
   &:hover {
     color: var(--light-grayish-blue);
+  }
+
+  &:hover img {
+    filter: brightness(180%) saturate(50%);
   }
 `;
 
@@ -258,10 +262,12 @@ const DeleteButton = styled(UnstyledButton)`
   }
 
   &:hover,
-  &:focus,
-  img:hover,
-  img:focus {
+  &:focus {
     color: var(--pale-red);
+  }
+  &:hover img,
+  &:focus img {
+    filter: brightness(170%) saturate(70%);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
@@ -284,7 +290,10 @@ const EditButton = styled(UnstyledButton)`
 
   &:hover {
     color: var(--light-grayish-blue);
-    filter: brightness(0.8);
+  }
+
+  &:hover img {
+    filter: brightness(180%) saturate(50%);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {

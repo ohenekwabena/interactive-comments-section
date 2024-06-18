@@ -2980,7 +2980,7 @@ root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./App":"2kQhy","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/GlobalStyles":"105Im"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./App":"2kQhy","./components/GlobalStyles":"105Im","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27243,258 +27243,7 @@ $RefreshReg$(_c2, "MaxWidthWrapper");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./components/Comments":"7fZqI","./components/CommentsProvider":"cnnSc","./components/AddComment":"9kHTg","styled-components":"1U3k6"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, "__esModule", {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"km3Ru":[function(require,module,exports) {
-"use strict";
-var Refresh = require("7422ead32dcc1e6b");
-function debounce(func, delay) {
-    {
-        let timeout = undefined;
-        let lastTime = 0;
-        return function(args) {
-            // Call immediately if last call was more than the delay ago.
-            // Otherwise, set a timeout. This means the first call is fast
-            // (for the common case of a single update), and subsequent updates
-            // are batched.
-            let now = Date.now();
-            if (now - lastTime > delay) {
-                lastTime = now;
-                func.call(null, args);
-            } else {
-                clearTimeout(timeout);
-                timeout = setTimeout(function() {
-                    timeout = undefined;
-                    lastTime = Date.now();
-                    func.call(null, args);
-                }, delay);
-            }
-        };
-    }
-}
-var enqueueUpdate = debounce(function() {
-    Refresh.performReactRefresh();
-}, 30);
-// Everthing below is either adapted or copied from
-// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
-// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
-module.exports.prelude = function(module1) {
-    window.$RefreshReg$ = function(type, id) {
-        Refresh.register(type, module1.id + " " + id);
-    };
-    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
-};
-module.exports.postlude = function(module1) {
-    if (isReactRefreshBoundary(module1.exports)) {
-        registerExportsForReactRefresh(module1);
-        if (module1.hot) {
-            module1.hot.dispose(function(data) {
-                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
-                data.prevExports = module1.exports;
-            });
-            module1.hot.accept(function(getParents) {
-                var prevExports = module1.hot.data.prevExports;
-                var nextExports = module1.exports;
-                // Since we just executed the code for it, it's possible
-                // that the new exports make it ineligible for being a boundary.
-                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports);
-                // It can also become ineligible if its exports are incompatible
-                // with the previous exports.
-                // For example, if you add/remove/change exports, we'll want
-                // to re-execute the importing modules, and force those components
-                // to re-render. Similarly, if you convert a class component
-                // to a function, we want to invalidate the boundary.
-                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
-                if (isNoLongerABoundary || didInvalidate) {
-                    // We'll be conservative. The only case in which we won't do a full
-                    // reload is if all parent modules are also refresh boundaries.
-                    // In that case we'll add them to the current queue.
-                    var parents = getParents();
-                    if (parents.length === 0) {
-                        // Looks like we bubbled to the root. Can't recover from that.
-                        window.location.reload();
-                        return;
-                    }
-                    return parents;
-                }
-                enqueueUpdate();
-            });
-        }
-    }
-};
-function isReactRefreshBoundary(exports) {
-    if (Refresh.isLikelyComponentType(exports)) return true;
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    return false;
-    var hasExports = false;
-    var areAllExportsComponents = true;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        hasExports = true;
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
-        return false;
-        var exportValue = exports[key];
-        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
-    }
-    return hasExports && areAllExportsComponents;
-}
-function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
-    var prevSignature = getRefreshBoundarySignature(prevExports);
-    var nextSignature = getRefreshBoundarySignature(nextExports);
-    if (prevSignature.length !== nextSignature.length) return true;
-    for(var i = 0; i < nextSignature.length; i++){
-        if (prevSignature[i] !== nextSignature[i]) return true;
-    }
-    return false;
-}
-// When this signature changes, it's unsafe to stop at this refresh boundary.
-function getRefreshBoundarySignature(exports) {
-    var signature = [];
-    signature.push(Refresh.getFamilyByType(exports));
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return signature;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        if (key === "__esModule") continue;
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        signature.push(key);
-        signature.push(Refresh.getFamilyByType(exportValue));
-    }
-    return signature;
-}
-function registerExportsForReactRefresh(module1) {
-    var exports = module1.exports, id = module1.id;
-    Refresh.register(exports, id + " %exports%");
-    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
-    // (This is important for legacy environments.)
-    return;
-    let isESM = "__esModule" in exports;
-    for(var key in exports){
-        var desc = Object.getOwnPropertyDescriptor(exports, key);
-        if (desc && desc.get && !isESM) continue;
-        var exportValue = exports[key];
-        var typeID = id + " %exports% " + key;
-        Refresh.register(exportValue, typeID);
-    }
-}
-
-},{"7422ead32dcc1e6b":"786KC"}],"7fZqI":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$cc5c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$cc5c.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _styledComponents = require("styled-components");
-var _commentsProvider = require("./CommentsProvider");
-var _comment = require("./Comment");
-var _commentDefault = parcelHelpers.interopDefault(_comment);
-var _s = $RefreshSig$();
-function Comments() {
-    _s();
-    const { comments } = (0, _react.useContext)((0, _commentsProvider.CommentContext));
-    const [hasScrolled, setHasScrolled] = (0, _react.useState)(false);
-    const commentRef = (0, _react.useRef)(null);
-    (0, _react.useEffect)(()=>{
-        if (!hasScrolled) window.scroll({
-            top: 0,
-            behavior: "smooth"
-        });
-        commentRef.current.scrollIntoView({
-            behavior: "smooth"
-        });
-        setHasScrolled(true);
-    }, [
-        comments
-    ]);
-    const sortedComments = comments.sort((a, b)=>b.score - a.score);
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
-        ref: commentRef,
-        children: sortedComments && sortedComments.length > 0 && sortedComments.map(({ id, content, createdAt, score, user, replies })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _commentDefault.default), {
-                actualId: id,
-                parentId: null,
-                content: content,
-                createdAt: createdAt,
-                score: score,
-                user: user,
-                replies: replies
-            }, id, false, {
-                fileName: "src/components/Comments.js",
-                lineNumber: 22,
-                columnNumber: 11
-            }, this))
-    }, void 0, false, {
-        fileName: "src/components/Comments.js",
-        lineNumber: 18,
-        columnNumber: 5
-    }, this);
-}
-_s(Comments, "M+6VlTT4ZvhBwpWPGjeRGvkbcW0=");
-_c = Comments;
-const Wrapper = (0, _styledComponents.styled).section`
-  margin-bottom: 1rem;
-  height: 60dvh;
-  overflow-y: scroll;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (min-width: 29.688rem) {
-    height: 75dvh;
-  }
-`;
-_c1 = Wrapper;
-exports.default = Comments;
-var _c, _c1;
-$RefreshReg$(_c, "Comments");
-$RefreshReg$(_c1, "Wrapper");
-
-  $parcel$ReactRefreshHelpers$cc5c.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","styled-components":"1U3k6","react":"21dqq","./CommentsProvider":"cnnSc","./Comment":"gqZUx"}],"1U3k6":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","styled-components":"1U3k6","./components/Comments":"7fZqI","./components/CommentsProvider":"cnnSc","./components/AddComment":"9kHTg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"1U3k6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ServerStyleSheet", ()=>mt);
@@ -28890,7 +28639,37 @@ function __classPrivateFieldIn(state, receiver) {
     return typeof state === "function" ? receiver === state : state.has(receiver);
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9JzNk":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || Object.prototype.hasOwnProperty.call(dest, key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"9JzNk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>isPropValid);
@@ -29674,7 +29453,90 @@ var unitlessKeys = {
 };
 exports.default = unitlessKeys;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cnnSc":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7fZqI":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$cc5c = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$cc5c.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _styledComponents = require("styled-components");
+var _commentsProvider = require("./CommentsProvider");
+var _comment = require("./Comment");
+var _commentDefault = parcelHelpers.interopDefault(_comment);
+var _s = $RefreshSig$();
+function Comments() {
+    _s();
+    const { comments } = (0, _react.useContext)((0, _commentsProvider.CommentContext));
+    const [hasScrolled, setHasScrolled] = (0, _react.useState)(false);
+    const commentRef = (0, _react.useRef)(null);
+    (0, _react.useEffect)(()=>{
+        if (!hasScrolled) window.scroll({
+            top: 0,
+            behavior: "smooth"
+        });
+        commentRef.current.scrollIntoView({
+            behavior: "smooth"
+        });
+        setHasScrolled(true);
+    }, [
+        comments
+    ]);
+    const sortedComments = comments.sort((a, b)=>b.score - a.score);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
+        ref: commentRef,
+        children: sortedComments && sortedComments.length > 0 && sortedComments.map(({ id, content, createdAt, score, user, replies })=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _commentDefault.default), {
+                actualId: id,
+                parentId: null,
+                content: content,
+                createdAt: createdAt,
+                score: score,
+                user: user,
+                replies: replies
+            }, id, false, {
+                fileName: "src/components/Comments.js",
+                lineNumber: 22,
+                columnNumber: 11
+            }, this))
+    }, void 0, false, {
+        fileName: "src/components/Comments.js",
+        lineNumber: 18,
+        columnNumber: 5
+    }, this);
+}
+_s(Comments, "M+6VlTT4ZvhBwpWPGjeRGvkbcW0=");
+_c = Comments;
+const Wrapper = (0, _styledComponents.styled).section`
+  margin-bottom: 1rem;
+  height: 60dvh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 29.688rem) {
+    height: 75dvh;
+  }
+`;
+_c1 = Wrapper;
+exports.default = Comments;
+var _c, _c1;
+$RefreshReg$(_c, "Comments");
+$RefreshReg$(_c1, "Wrapper");
+
+  $parcel$ReactRefreshHelpers$cc5c.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","styled-components":"1U3k6","./CommentsProvider":"cnnSc","./Comment":"gqZUx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cnnSc":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$bc43 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -29939,7 +29801,7 @@ const DATA = [
     }
 ];
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","d1fe3f520d1646aa":"eLiv6","9e8a9f568253e168":"ls21v","dce4efe183f8e5bd":"6IxtU","684202fca769bc2c":"a4ARI","d7400cd13428c03c":"2dObo","b02f856402c33bd1":"aMCiX","71fda75f867217fc":"58nwC","d5d2dbe39ac6faf7":"fpphM"}],"eLiv6":[function(require,module,exports) {
+},{"d1fe3f520d1646aa":"eLiv6","9e8a9f568253e168":"ls21v","dce4efe183f8e5bd":"6IxtU","684202fca769bc2c":"a4ARI","d7400cd13428c03c":"2dObo","b02f856402c33bd1":"aMCiX","71fda75f867217fc":"58nwC","d5d2dbe39ac6faf7":"fpphM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eLiv6":[function(require,module,exports) {
 module.exports = require("d43bf0cfe67767e4").getBundleURL("bLxZJ") + "image-juliusomo.96246bc8.png" + "?" + Date.now();
 
 },{"d43bf0cfe67767e4":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -29998,7 +29860,145 @@ module.exports = require("d7de1ea10d27168e").getBundleURL("bLxZJ") + "image-rams
 },{"d7de1ea10d27168e":"lgJ39"}],"fpphM":[function(require,module,exports) {
 module.exports = require("f45dea1835451f0a").getBundleURL("bLxZJ") + "image-ramsesmiron.d53bcc49.webp" + "?" + Date.now();
 
-},{"f45dea1835451f0a":"lgJ39"}],"gqZUx":[function(require,module,exports) {
+},{"f45dea1835451f0a":"lgJ39"}],"km3Ru":[function(require,module,exports) {
+"use strict";
+var Refresh = require("7422ead32dcc1e6b");
+function debounce(func, delay) {
+    {
+        let timeout = undefined;
+        let lastTime = 0;
+        return function(args) {
+            // Call immediately if last call was more than the delay ago.
+            // Otherwise, set a timeout. This means the first call is fast
+            // (for the common case of a single update), and subsequent updates
+            // are batched.
+            let now = Date.now();
+            if (now - lastTime > delay) {
+                lastTime = now;
+                func.call(null, args);
+            } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(function() {
+                    timeout = undefined;
+                    lastTime = Date.now();
+                    func.call(null, args);
+                }, delay);
+            }
+        };
+    }
+}
+var enqueueUpdate = debounce(function() {
+    Refresh.performReactRefresh();
+}, 30);
+// Everthing below is either adapted or copied from
+// https://github.com/facebook/metro/blob/61de16bd1edd7e738dd0311c89555a644023ab2d/packages/metro/src/lib/polyfills/require.js
+// MIT License - Copyright (c) Facebook, Inc. and its affiliates.
+module.exports.prelude = function(module1) {
+    window.$RefreshReg$ = function(type, id) {
+        Refresh.register(type, module1.id + " " + id);
+    };
+    window.$RefreshSig$ = Refresh.createSignatureFunctionForTransform;
+};
+module.exports.postlude = function(module1) {
+    if (isReactRefreshBoundary(module1.exports)) {
+        registerExportsForReactRefresh(module1);
+        if (module1.hot) {
+            module1.hot.dispose(function(data) {
+                if (Refresh.hasUnrecoverableErrors()) window.location.reload();
+                data.prevExports = module1.exports;
+            });
+            module1.hot.accept(function(getParents) {
+                var prevExports = module1.hot.data.prevExports;
+                var nextExports = module1.exports;
+                // Since we just executed the code for it, it's possible
+                // that the new exports make it ineligible for being a boundary.
+                var isNoLongerABoundary = !isReactRefreshBoundary(nextExports);
+                // It can also become ineligible if its exports are incompatible
+                // with the previous exports.
+                // For example, if you add/remove/change exports, we'll want
+                // to re-execute the importing modules, and force those components
+                // to re-render. Similarly, if you convert a class component
+                // to a function, we want to invalidate the boundary.
+                var didInvalidate = shouldInvalidateReactRefreshBoundary(prevExports, nextExports);
+                if (isNoLongerABoundary || didInvalidate) {
+                    // We'll be conservative. The only case in which we won't do a full
+                    // reload is if all parent modules are also refresh boundaries.
+                    // In that case we'll add them to the current queue.
+                    var parents = getParents();
+                    if (parents.length === 0) {
+                        // Looks like we bubbled to the root. Can't recover from that.
+                        window.location.reload();
+                        return;
+                    }
+                    return parents;
+                }
+                enqueueUpdate();
+            });
+        }
+    }
+};
+function isReactRefreshBoundary(exports) {
+    if (Refresh.isLikelyComponentType(exports)) return true;
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    return false;
+    var hasExports = false;
+    var areAllExportsComponents = true;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        hasExports = true;
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) // Don't invoke getters for CJS as they may have side effects.
+        return false;
+        var exportValue = exports[key];
+        if (!Refresh.isLikelyComponentType(exportValue)) areAllExportsComponents = false;
+    }
+    return hasExports && areAllExportsComponents;
+}
+function shouldInvalidateReactRefreshBoundary(prevExports, nextExports) {
+    var prevSignature = getRefreshBoundarySignature(prevExports);
+    var nextSignature = getRefreshBoundarySignature(nextExports);
+    if (prevSignature.length !== nextSignature.length) return true;
+    for(var i = 0; i < nextSignature.length; i++){
+        if (prevSignature[i] !== nextSignature[i]) return true;
+    }
+    return false;
+}
+// When this signature changes, it's unsafe to stop at this refresh boundary.
+function getRefreshBoundarySignature(exports) {
+    var signature = [];
+    signature.push(Refresh.getFamilyByType(exports));
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return signature;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        if (key === "__esModule") continue;
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        signature.push(key);
+        signature.push(Refresh.getFamilyByType(exportValue));
+    }
+    return signature;
+}
+function registerExportsForReactRefresh(module1) {
+    var exports = module1.exports, id = module1.id;
+    Refresh.register(exports, id + " %exports%");
+    if (exports == null || typeof exports !== "object") // Exit if we can't iterate over exports.
+    // (This is important for legacy environments.)
+    return;
+    let isESM = "__esModule" in exports;
+    for(var key in exports){
+        var desc = Object.getOwnPropertyDescriptor(exports, key);
+        if (desc && desc.get && !isESM) continue;
+        var exportValue = exports[key];
+        var typeID = id + " %exports% " + key;
+        Refresh.register(exportValue, typeID);
+    }
+}
+
+},{"7422ead32dcc1e6b":"786KC"}],"gqZUx":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$57bf = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -30058,7 +30058,8 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
     }, [
         content,
         isEditing,
-        replying
+        replying,
+        hasScrolled
     ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
@@ -30074,34 +30075,34 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                         alt: ""
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 41,
+                                        lineNumber: 40,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Name, {
                                         children: user?.username
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 42,
+                                        lineNumber: 41,
                                         columnNumber: 13
                                     }, this),
                                     currentUsername === user.username && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Verified, {
                                         children: "you"
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 43,
+                                        lineNumber: 42,
                                         columnNumber: 51
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Duration, {
                                         children: timeSincePosted
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 44,
+                                        lineNumber: 43,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 40,
+                                lineNumber: 39,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Content, {
@@ -30111,7 +30112,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                     setIsEditing: setIsEditing
                                 }, void 0, false, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 48,
+                                    lineNumber: 47,
                                     columnNumber: 15
                                 }, this) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                     children: [
@@ -30122,7 +30123,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 51,
+                                            lineNumber: 50,
                                             columnNumber: 32
                                         }, this),
                                         " ",
@@ -30130,12 +30131,12 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 50,
+                                    lineNumber: 49,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 46,
+                                lineNumber: 45,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Rating, {
@@ -30147,19 +30148,19 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 57,
+                                            lineNumber: 56,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 56,
+                                        lineNumber: 55,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                         children: score
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 59,
+                                        lineNumber: 58,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _unstyledButtonDefault.default), {
@@ -30169,18 +30170,18 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 61,
+                                            lineNumber: 60,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "src/components/Comment.js",
-                                        lineNumber: 60,
+                                        lineNumber: 59,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 55,
+                                lineNumber: 54,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(CurrentUserActions, {
@@ -30194,20 +30195,20 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                                     alt: ""
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 68,
+                                                    lineNumber: 67,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                     children: "Delete"
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 69,
+                                                    lineNumber: 68,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 67,
+                                            lineNumber: 66,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(EditButton, {
@@ -30218,20 +30219,20 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                                     alt: ""
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 72,
+                                                    lineNumber: 71,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                                     children: "Edit"
                                                 }, void 0, false, {
                                                     fileName: "src/components/Comment.js",
-                                                    lineNumber: 73,
+                                                    lineNumber: 72,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 71,
+                                            lineNumber: 70,
                                             columnNumber: 17
                                         }, this)
                                     ]
@@ -30243,31 +30244,31 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 78,
+                                            lineNumber: 77,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
                                             children: "Reply"
                                         }, void 0, false, {
                                             fileName: "src/components/Comment.js",
-                                            lineNumber: 79,
+                                            lineNumber: 78,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/Comment.js",
-                                    lineNumber: 77,
+                                    lineNumber: 76,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Comment.js",
-                                lineNumber: 64,
+                                lineNumber: 63,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 39,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this),
                     replying && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _addCommentDefault.default), {
@@ -30277,13 +30278,13 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                         replying: replying
                     }, void 0, false, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 85,
+                        lineNumber: 84,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 38,
+                lineNumber: 37,
                 columnNumber: 7
             }, this),
             replies && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _commentRepliesDefault.default), {
@@ -30298,12 +30299,12 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                         replyingTo: replyingTo
                     }, id, false, {
                         fileName: "src/components/Comment.js",
-                        lineNumber: 96,
+                        lineNumber: 95,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 94,
+                lineNumber: 93,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _deleteCommentJsDefault.default), {
@@ -30312,7 +30313,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                 confirmDelete: confirmDelete
             }, void 0, false, {
                 fileName: "src/components/Comment.js",
-                lineNumber: 111,
+                lineNumber: 110,
                 columnNumber: 7
             }, this)
         ]
@@ -30378,7 +30379,7 @@ const Rating = (0, _styledComponentsDefault.default).div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
   padding: 0 0.75rem;
   border-radius: 8px;
   color: var(--light-grayish-blue);
@@ -30392,6 +30393,7 @@ const Rating = (0, _styledComponentsDefault.default).div`
   & ${(0, _unstyledButtonDefault.default)} {
     display: flex;
     align-items: center;
+    padding: 0.5rem;
     cursor: pointer;
   }
 
@@ -30419,6 +30421,10 @@ const Reply = (0, _styledComponentsDefault.default)((0, _unstyledButtonDefault.d
   &:hover {
     color: var(--light-grayish-blue);
   }
+
+  &:hover img {
+    filter: brightness(180%) saturate(50%);
+  }
 `;
 _c7 = Reply;
 const ReplyingTo = (0, _styledComponentsDefault.default).span`
@@ -30432,7 +30438,7 @@ function Avatar({ src, alt }) {
         alt: alt
     }, void 0, false, {
         fileName: "src/components/Comment.js",
-        lineNumber: 222,
+        lineNumber: 226,
         columnNumber: 10
     }, this);
 }
@@ -30473,10 +30479,12 @@ const DeleteButton = (0, _styledComponentsDefault.default)((0, _unstyledButtonDe
   }
 
   &:hover,
-  &:focus,
-  img:hover,
-  img:focus {
+  &:focus {
     color: var(--pale-red);
+  }
+  &:hover img,
+  &:focus img {
+    filter: brightness(170%) saturate(70%);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
@@ -30499,7 +30507,10 @@ const EditButton = (0, _styledComponentsDefault.default)((0, _unstyledButtonDefa
 
   &:hover {
     color: var(--light-grayish-blue);
-    filter: brightness(0.8);
+  }
+
+  &:hover img {
+    filter: brightness(180%) saturate(50%);
   }
 
   @media (min-width: 29.688rem) and (max-width: 35.75rem) {
@@ -30541,7 +30552,7 @@ $RefreshReg$(_c14, "Verified");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../../images/icon-plus.svg":"cPV0a","../../images/icon-minus.svg":"g6sTF","../../images/icon-reply.svg":"5gV9l","./CommentReplies":"fjJE7","react":"21dqq","./AddComment":"9kHTg","./UnstyledButton":"duLt6","../data.js":"9kapS","../../images/icon-edit.svg":"iYoGg","../../images/icon-delete.svg":"iHLMv","./EditComment.js":"hQjSf","./DeleteComment.js":"41TFd","./CommentsProvider.js":"cnnSc"}],"cPV0a":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../data.js":"9kapS","react":"21dqq","styled-components":"1U3k6","../../images/icon-plus.svg":"cPV0a","../../images/icon-minus.svg":"g6sTF","../../images/icon-reply.svg":"5gV9l","../../images/icon-edit.svg":"iYoGg","../../images/icon-delete.svg":"iHLMv","./CommentReplies":"fjJE7","./AddComment":"9kHTg","./UnstyledButton":"duLt6","./EditComment.js":"hQjSf","./DeleteComment.js":"41TFd","./CommentsProvider.js":"cnnSc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cPV0a":[function(require,module,exports) {
 module.exports = require("e58b107976b9cbea").getBundleURL("bLxZJ") + "icon-plus.b4324a6a.svg" + "?" + Date.now();
 
 },{"e58b107976b9cbea":"lgJ39"}],"g6sTF":[function(require,module,exports) {
@@ -30550,7 +30561,13 @@ module.exports = require("35dead6d09992541").getBundleURL("bLxZJ") + "icon-minus
 },{"35dead6d09992541":"lgJ39"}],"5gV9l":[function(require,module,exports) {
 module.exports = require("dc558112b31a73b3").getBundleURL("bLxZJ") + "icon-reply.155d673c.svg" + "?" + Date.now();
 
-},{"dc558112b31a73b3":"lgJ39"}],"fjJE7":[function(require,module,exports) {
+},{"dc558112b31a73b3":"lgJ39"}],"iYoGg":[function(require,module,exports) {
+module.exports = require("29cbf70d8910e3dc").getBundleURL("bLxZJ") + "icon-edit.ae77df9a.svg" + "?" + Date.now();
+
+},{"29cbf70d8910e3dc":"lgJ39"}],"iHLMv":[function(require,module,exports) {
+module.exports = require("9324237ff072c878").getBundleURL("bLxZJ") + "icon-delete.97171805.svg" + "?" + Date.now();
+
+},{"9324237ff072c878":"lgJ39"}],"fjJE7":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$3d80 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -30562,20 +30579,13 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>CommentReplies);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _styledComponents = require("styled-components");
-var _framerMotion = require("framer-motion");
 function CommentReplies({ children }) {
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _framerMotion.LayoutGroup), {
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
-            children: children
-        }, void 0, false, {
-            fileName: "src/components/CommentReplies.js",
-            lineNumber: 7,
-            columnNumber: 7
-        }, this)
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Wrapper, {
+        children: children
     }, void 0, false, {
         fileName: "src/components/CommentReplies.js",
-        lineNumber: 6,
-        columnNumber: 5
+        lineNumber: 4,
+        columnNumber: 10
     }, this);
 }
 _c = CommentReplies;
@@ -30594,560 +30604,7 @@ $RefreshReg$(_c1, "Wrapper");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","framer-motion":"5bZBB"}],"5bZBB":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createDomMotionComponent", ()=>(0, _motionMjs.createDomMotionComponent));
-parcelHelpers.export(exports, "motion", ()=>(0, _motionMjs.motion));
-parcelHelpers.export(exports, "m", ()=>(0, _motionMinimalMjs.m));
-parcelHelpers.export(exports, "AnimatePresence", ()=>(0, _indexMjs.AnimatePresence));
-parcelHelpers.export(exports, "MotionConfig", ()=>(0, _indexMjs1.MotionConfig));
-parcelHelpers.export(exports, "LazyMotion", ()=>(0, _indexMjs2.LazyMotion));
-parcelHelpers.export(exports, "LayoutGroup", ()=>(0, _indexMjs3.LayoutGroup));
-parcelHelpers.export(exports, "Reorder", ()=>(0, _indexMjs4.Reorder));
-parcelHelpers.export(exports, "domAnimation", ()=>(0, _featuresAnimationMjs.domAnimation));
-parcelHelpers.export(exports, "domMax", ()=>(0, _featuresMaxMjs.domMax));
-parcelHelpers.export(exports, "useMotionValue", ()=>(0, _useMotionValueMjs.useMotionValue));
-parcelHelpers.export(exports, "useMotionTemplate", ()=>(0, _useMotionTemplateMjs.useMotionTemplate));
-parcelHelpers.export(exports, "resolveMotionValue", ()=>(0, _resolveMotionValueMjs.resolveMotionValue));
-parcelHelpers.export(exports, "useTransform", ()=>(0, _useTransformMjs.useTransform));
-parcelHelpers.export(exports, "useSpring", ()=>(0, _useSpringMjs.useSpring));
-parcelHelpers.export(exports, "useVelocity", ()=>(0, _useVelocityMjs.useVelocity));
-parcelHelpers.export(exports, "useScroll", ()=>(0, _useScrollMjs.useScroll));
-parcelHelpers.export(exports, "useElementScroll", ()=>(0, _useElementScrollMjs.useElementScroll));
-parcelHelpers.export(exports, "useViewportScroll", ()=>(0, _useViewportScrollMjs.useViewportScroll));
-parcelHelpers.export(exports, "useTime", ()=>(0, _useTimeMjs.useTime));
-parcelHelpers.export(exports, "useWillChange", ()=>(0, _indexMjs5.useWillChange));
-parcelHelpers.export(exports, "useMotionValueEvent", ()=>(0, _useMotionValueEventMjs.useMotionValueEvent));
-parcelHelpers.export(exports, "useReducedMotion", ()=>(0, _useReducedMotionMjs.useReducedMotion));
-parcelHelpers.export(exports, "useReducedMotionConfig", ()=>(0, _useReducedMotionConfigMjs.useReducedMotionConfig));
-parcelHelpers.export(exports, "animationControls", ()=>(0, _animationControlsMjs.animationControls));
-parcelHelpers.export(exports, "useAnimate", ()=>(0, _useAnimateMjs.useAnimate));
-parcelHelpers.export(exports, "useAnimation", ()=>(0, _useAnimationMjs.useAnimation));
-parcelHelpers.export(exports, "useAnimationControls", ()=>(0, _useAnimationMjs.useAnimationControls));
-parcelHelpers.export(exports, "useAnimationFrame", ()=>(0, _useAnimationFrameMjs.useAnimationFrame));
-parcelHelpers.export(exports, "animateVisualElement", ()=>(0, _visualElementMjs.animateVisualElement));
-parcelHelpers.export(exports, "useCycle", ()=>(0, _useCycleMjs.useCycle));
-parcelHelpers.export(exports, "isValidMotionProp", ()=>(0, _validPropMjs.isValidMotionProp));
-parcelHelpers.export(exports, "useIsPresent", ()=>(0, _usePresenceMjs.useIsPresent));
-parcelHelpers.export(exports, "usePresence", ()=>(0, _usePresenceMjs.usePresence));
-parcelHelpers.export(exports, "useInView", ()=>(0, _useInViewMjs.useInView));
-parcelHelpers.export(exports, "DragControls", ()=>(0, _useDragControlsMjs.DragControls));
-parcelHelpers.export(exports, "useDragControls", ()=>(0, _useDragControlsMjs.useDragControls));
-parcelHelpers.export(exports, "useDomEvent", ()=>(0, _useDomEventMjs.useDomEvent));
-parcelHelpers.export(exports, "createMotionComponent", ()=>(0, _indexMjs6.createMotionComponent));
-parcelHelpers.export(exports, "isMotionComponent", ()=>(0, _isMotionComponentMjs.isMotionComponent));
-parcelHelpers.export(exports, "unwrapMotionComponent", ()=>(0, _unwrapMotionComponentMjs.unwrapMotionComponent));
-parcelHelpers.export(exports, "VisualElement", ()=>(0, _visualElementMjs1.VisualElement));
-parcelHelpers.export(exports, "addScaleCorrector", ()=>(0, _scaleCorrectionMjs.addScaleCorrector));
-parcelHelpers.export(exports, "disableInstantTransitions", ()=>(0, _useInstantTransitionMjs.disableInstantTransitions));
-parcelHelpers.export(exports, "useInstantTransition", ()=>(0, _useInstantTransitionMjs.useInstantTransition));
-parcelHelpers.export(exports, "useInstantLayoutTransition", ()=>(0, _useInstantLayoutTransitionMjs.useInstantLayoutTransition));
-parcelHelpers.export(exports, "useResetProjection", ()=>(0, _useResetProjectionMjs.useResetProjection));
-parcelHelpers.export(exports, "buildTransform", ()=>(0, _buildTransformMjs.buildTransform));
-parcelHelpers.export(exports, "visualElementStore", ()=>(0, _storeMjs.visualElementStore));
-parcelHelpers.export(exports, "animateValue", ()=>(0, _mainThreadAnimationMjs.animateValue));
-parcelHelpers.export(exports, "color", ()=>(0, _indexMjs7.color));
-parcelHelpers.export(exports, "complex", ()=>(0, _indexMjs8.complex));
-parcelHelpers.export(exports, "px", ()=>(0, _unitsMjs.px));
-parcelHelpers.export(exports, "MotionGlobalConfig", ()=>(0, _globalConfigMjs.MotionGlobalConfig));
-parcelHelpers.export(exports, "AcceleratedAnimation", ()=>(0, _acceleratedAnimationMjs.AcceleratedAnimation));
-parcelHelpers.export(exports, "startOptimizedAppearAnimation", ()=>(0, _startMjs.startOptimizedAppearAnimation));
-parcelHelpers.export(exports, "optimizedAppearDataAttribute", ()=>(0, _dataIdMjs.optimizedAppearDataAttribute));
-parcelHelpers.export(exports, "spring", ()=>(0, _indexMjs9.spring));
-parcelHelpers.export(exports, "MotionContext", ()=>(0, _indexMjs10.MotionContext));
-parcelHelpers.export(exports, "MotionConfigContext", ()=>(0, _motionConfigContextMjs.MotionConfigContext));
-parcelHelpers.export(exports, "PresenceContext", ()=>(0, _presenceContextMjs.PresenceContext));
-parcelHelpers.export(exports, "LayoutGroupContext", ()=>(0, _layoutGroupContextMjs.LayoutGroupContext));
-parcelHelpers.export(exports, "SwitchLayoutGroupContext", ()=>(0, _switchLayoutGroupContextMjs.SwitchLayoutGroupContext));
-parcelHelpers.export(exports, "FlatTree", ()=>(0, _flatTreeMjs.FlatTree));
-parcelHelpers.export(exports, "DeprecatedLayoutGroupContext", ()=>(0, _deprecatedLayoutGroupContextMjs.DeprecatedLayoutGroupContext));
-parcelHelpers.export(exports, "useDeprecatedAnimatedState", ()=>(0, _useAnimatedStateMjs.useAnimatedState));
-parcelHelpers.export(exports, "useDeprecatedInvertedScale", ()=>(0, _useInvertedScaleMjs.useInvertedScale));
-parcelHelpers.export(exports, "AnimateSharedLayout", ()=>(0, _animateSharedLayoutMjs.AnimateSharedLayout));
-parcelHelpers.export(exports, "MotionValue", ()=>(0, _indexMjs11.MotionValue));
-parcelHelpers.export(exports, "motionValue", ()=>(0, _indexMjs11.motionValue));
-parcelHelpers.export(exports, "animate", ()=>(0, _animateMjs.animate));
-parcelHelpers.export(exports, "createScopedAnimate", ()=>(0, _animateMjs.createScopedAnimate));
-parcelHelpers.export(exports, "scroll", ()=>(0, _indexMjs12.scroll));
-parcelHelpers.export(exports, "scrollInfo", ()=>(0, _trackMjs.scrollInfo));
-parcelHelpers.export(exports, "inView", ()=>(0, _indexMjs13.inView));
-parcelHelpers.export(exports, "stagger", ()=>(0, _staggerMjs.stagger));
-parcelHelpers.export(exports, "transform", ()=>(0, _transformMjs.transform));
-parcelHelpers.export(exports, "clamp", ()=>(0, _clampMjs.clamp));
-parcelHelpers.export(exports, "mix", ()=>(0, _indexMjs14.mix));
-parcelHelpers.export(exports, "pipe", ()=>(0, _pipeMjs.pipe));
-parcelHelpers.export(exports, "progress", ()=>(0, _progressMjs.progress));
-parcelHelpers.export(exports, "wrap", ()=>(0, _wrapMjs.wrap));
-parcelHelpers.export(exports, "cancelSync", ()=>(0, _indexLegacyMjs.cancelSync));
-parcelHelpers.export(exports, "sync", ()=>(0, _indexLegacyMjs.sync));
-parcelHelpers.export(exports, "anticipate", ()=>(0, _anticipateMjs.anticipate));
-parcelHelpers.export(exports, "backIn", ()=>(0, _backMjs.backIn));
-parcelHelpers.export(exports, "backInOut", ()=>(0, _backMjs.backInOut));
-parcelHelpers.export(exports, "backOut", ()=>(0, _backMjs.backOut));
-parcelHelpers.export(exports, "circIn", ()=>(0, _circMjs.circIn));
-parcelHelpers.export(exports, "circInOut", ()=>(0, _circMjs.circInOut));
-parcelHelpers.export(exports, "circOut", ()=>(0, _circMjs.circOut));
-parcelHelpers.export(exports, "easeIn", ()=>(0, _easeMjs.easeIn));
-parcelHelpers.export(exports, "easeInOut", ()=>(0, _easeMjs.easeInOut));
-parcelHelpers.export(exports, "easeOut", ()=>(0, _easeMjs.easeOut));
-parcelHelpers.export(exports, "cubicBezier", ()=>(0, _cubicBezierMjs.cubicBezier));
-parcelHelpers.export(exports, "mirrorEasing", ()=>(0, _mirrorMjs.mirrorEasing));
-parcelHelpers.export(exports, "reverseEasing", ()=>(0, _reverseMjs.reverseEasing));
-parcelHelpers.export(exports, "delay", ()=>(0, _delayMjs.delay));
-parcelHelpers.export(exports, "distance", ()=>(0, _distanceMjs.distance));
-parcelHelpers.export(exports, "distance2D", ()=>(0, _distanceMjs.distance2D));
-parcelHelpers.export(exports, "invariant", ()=>(0, _errorsMjs.invariant));
-parcelHelpers.export(exports, "warning", ()=>(0, _errorsMjs.warning));
-parcelHelpers.export(exports, "interpolate", ()=>(0, _interpolateMjs.interpolate));
-parcelHelpers.export(exports, "cancelFrame", ()=>(0, _frameMjs.cancelFrame));
-parcelHelpers.export(exports, "frame", ()=>(0, _frameMjs.frame));
-parcelHelpers.export(exports, "frameData", ()=>(0, _frameMjs.frameData));
-parcelHelpers.export(exports, "steps", ()=>(0, _frameMjs.steps));
-parcelHelpers.export(exports, "animations", ()=>(0, _animationsMjs.animations));
-parcelHelpers.export(exports, "createBox", ()=>(0, _modelsMjs.createBox));
-parcelHelpers.export(exports, "calcLength", ()=>(0, _deltaCalcMjs.calcLength));
-parcelHelpers.export(exports, "filterProps", ()=>(0, _filterPropsMjs.filterProps));
-parcelHelpers.export(exports, "makeUseVisualState", ()=>(0, _useVisualStateMjs.makeUseVisualState));
-parcelHelpers.export(exports, "isDragActive", ()=>(0, _lockMjs.isDragActive));
-parcelHelpers.export(exports, "addPointerEvent", ()=>(0, _addPointerEventMjs.addPointerEvent));
-parcelHelpers.export(exports, "addPointerInfo", ()=>(0, _eventInfoMjs.addPointerInfo));
-parcelHelpers.export(exports, "isMotionValue", ()=>(0, _isMotionValueMjs.isMotionValue));
-parcelHelpers.export(exports, "isBrowser", ()=>(0, _isBrowserMjs.isBrowser));
-parcelHelpers.export(exports, "useUnmountEffect", ()=>(0, _useUnmountEffectMjs.useUnmountEffect));
-parcelHelpers.export(exports, "useIsomorphicLayoutEffect", ()=>(0, _useIsomorphicEffectMjs.useIsomorphicLayoutEffect));
-parcelHelpers.export(exports, "useForceUpdate", ()=>(0, _useForceUpdateMjs.useForceUpdate));
-var _motionMjs = require("./render/dom/motion.mjs");
-var _motionMinimalMjs = require("./render/dom/motion-minimal.mjs");
-var _indexMjs = require("./components/AnimatePresence/index.mjs");
-var _indexMjs1 = require("./components/MotionConfig/index.mjs");
-var _indexMjs2 = require("./components/LazyMotion/index.mjs");
-var _indexMjs3 = require("./components/LayoutGroup/index.mjs");
-var _indexMjs4 = require("./components/Reorder/index.mjs");
-var _featuresAnimationMjs = require("./render/dom/features-animation.mjs");
-var _featuresMaxMjs = require("./render/dom/features-max.mjs");
-var _useMotionValueMjs = require("./value/use-motion-value.mjs");
-var _useMotionTemplateMjs = require("./value/use-motion-template.mjs");
-var _resolveMotionValueMjs = require("./value/utils/resolve-motion-value.mjs");
-var _useTransformMjs = require("./value/use-transform.mjs");
-var _useSpringMjs = require("./value/use-spring.mjs");
-var _useVelocityMjs = require("./value/use-velocity.mjs");
-var _useScrollMjs = require("./value/use-scroll.mjs");
-var _useElementScrollMjs = require("./value/scroll/use-element-scroll.mjs");
-var _useViewportScrollMjs = require("./value/scroll/use-viewport-scroll.mjs");
-var _useTimeMjs = require("./value/use-time.mjs");
-var _indexMjs5 = require("./value/use-will-change/index.mjs");
-var _useMotionValueEventMjs = require("./utils/use-motion-value-event.mjs");
-var _useReducedMotionMjs = require("./utils/reduced-motion/use-reduced-motion.mjs");
-var _useReducedMotionConfigMjs = require("./utils/reduced-motion/use-reduced-motion-config.mjs");
-var _animationControlsMjs = require("./animation/hooks/animation-controls.mjs");
-var _useAnimateMjs = require("./animation/hooks/use-animate.mjs");
-var _useAnimationMjs = require("./animation/hooks/use-animation.mjs");
-var _useAnimationFrameMjs = require("./utils/use-animation-frame.mjs");
-var _visualElementMjs = require("./animation/interfaces/visual-element.mjs");
-var _useCycleMjs = require("./utils/use-cycle.mjs");
-var _validPropMjs = require("./motion/utils/valid-prop.mjs");
-var _usePresenceMjs = require("./components/AnimatePresence/use-presence.mjs");
-var _useInViewMjs = require("./utils/use-in-view.mjs");
-var _useDragControlsMjs = require("./gestures/drag/use-drag-controls.mjs");
-var _useDomEventMjs = require("./events/use-dom-event.mjs");
-var _indexMjs6 = require("./motion/index.mjs");
-var _isMotionComponentMjs = require("./motion/utils/is-motion-component.mjs");
-var _unwrapMotionComponentMjs = require("./motion/utils/unwrap-motion-component.mjs");
-var _visualElementMjs1 = require("./render/VisualElement.mjs");
-var _scaleCorrectionMjs = require("./projection/styles/scale-correction.mjs");
-var _useInstantTransitionMjs = require("./utils/use-instant-transition.mjs");
-var _useInstantLayoutTransitionMjs = require("./projection/use-instant-layout-transition.mjs");
-var _useResetProjectionMjs = require("./projection/use-reset-projection.mjs");
-var _buildTransformMjs = require("./render/html/utils/build-transform.mjs");
-var _storeMjs = require("./render/store.mjs");
-var _mainThreadAnimationMjs = require("./animation/animators/MainThreadAnimation.mjs");
-var _indexMjs7 = require("./value/types/color/index.mjs");
-var _indexMjs8 = require("./value/types/complex/index.mjs");
-var _unitsMjs = require("./value/types/numbers/units.mjs");
-var _globalConfigMjs = require("./utils/GlobalConfig.mjs");
-var _acceleratedAnimationMjs = require("./animation/animators/AcceleratedAnimation.mjs");
-var _startMjs = require("./animation/optimized-appear/start.mjs");
-var _dataIdMjs = require("./animation/optimized-appear/data-id.mjs");
-var _indexMjs9 = require("./animation/generators/spring/index.mjs");
-var _indexMjs10 = require("./context/MotionContext/index.mjs");
-var _motionConfigContextMjs = require("./context/MotionConfigContext.mjs");
-var _presenceContextMjs = require("./context/PresenceContext.mjs");
-var _layoutGroupContextMjs = require("./context/LayoutGroupContext.mjs");
-var _switchLayoutGroupContextMjs = require("./context/SwitchLayoutGroupContext.mjs");
-var _flatTreeMjs = require("./render/utils/flat-tree.mjs");
-var _deprecatedLayoutGroupContextMjs = require("./context/DeprecatedLayoutGroupContext.mjs");
-var _useAnimatedStateMjs = require("./animation/hooks/use-animated-state.mjs");
-var _useInvertedScaleMjs = require("./value/use-inverted-scale.mjs");
-var _animateSharedLayoutMjs = require("./components/AnimateSharedLayout.mjs");
-var _indexMjs11 = require("./value/index.mjs");
-var _animateMjs = require("./animation/animate.mjs");
-var _indexMjs12 = require("./render/dom/scroll/index.mjs");
-var _trackMjs = require("./render/dom/scroll/track.mjs");
-var _indexMjs13 = require("./render/dom/viewport/index.mjs");
-var _staggerMjs = require("./animation/utils/stagger.mjs");
-var _transformMjs = require("./utils/transform.mjs");
-var _clampMjs = require("./utils/clamp.mjs");
-var _indexMjs14 = require("./utils/mix/index.mjs");
-var _pipeMjs = require("./utils/pipe.mjs");
-var _progressMjs = require("./utils/progress.mjs");
-var _wrapMjs = require("./utils/wrap.mjs");
-var _indexLegacyMjs = require("./frameloop/index-legacy.mjs");
-var _anticipateMjs = require("./easing/anticipate.mjs");
-var _backMjs = require("./easing/back.mjs");
-var _circMjs = require("./easing/circ.mjs");
-var _easeMjs = require("./easing/ease.mjs");
-var _cubicBezierMjs = require("./easing/cubic-bezier.mjs");
-var _mirrorMjs = require("./easing/modifiers/mirror.mjs");
-var _reverseMjs = require("./easing/modifiers/reverse.mjs");
-var _delayMjs = require("./utils/delay.mjs");
-var _distanceMjs = require("./utils/distance.mjs");
-var _errorsMjs = require("./utils/errors.mjs");
-var _interpolateMjs = require("./utils/interpolate.mjs");
-var _frameMjs = require("./frameloop/frame.mjs");
-var _animationsMjs = require("./motion/features/animations.mjs");
-var _modelsMjs = require("./projection/geometry/models.mjs");
-var _deltaCalcMjs = require("./projection/geometry/delta-calc.mjs");
-var _filterPropsMjs = require("./render/dom/utils/filter-props.mjs");
-var _useVisualStateMjs = require("./motion/utils/use-visual-state.mjs");
-var _lockMjs = require("./gestures/drag/utils/lock.mjs");
-var _addPointerEventMjs = require("./events/add-pointer-event.mjs");
-var _eventInfoMjs = require("./events/event-info.mjs");
-var _isMotionValueMjs = require("./value/utils/is-motion-value.mjs");
-var _isBrowserMjs = require("./utils/is-browser.mjs");
-var _useUnmountEffectMjs = require("./utils/use-unmount-effect.mjs");
-var _useIsomorphicEffectMjs = require("./utils/use-isomorphic-effect.mjs");
-var _useForceUpdateMjs = require("./utils/use-force-update.mjs");
-
-},{"./render/dom/motion.mjs":false,"./render/dom/motion-minimal.mjs":false,"./components/AnimatePresence/index.mjs":false,"./components/MotionConfig/index.mjs":false,"./components/LazyMotion/index.mjs":false,"./components/LayoutGroup/index.mjs":"b9GPH","./components/Reorder/index.mjs":false,"./render/dom/features-animation.mjs":false,"./render/dom/features-max.mjs":false,"./value/use-motion-value.mjs":false,"./value/use-motion-template.mjs":false,"./value/utils/resolve-motion-value.mjs":false,"./value/use-transform.mjs":false,"./value/use-spring.mjs":false,"./value/use-velocity.mjs":false,"./value/use-scroll.mjs":false,"./value/scroll/use-element-scroll.mjs":false,"./value/scroll/use-viewport-scroll.mjs":false,"./value/use-time.mjs":false,"./value/use-will-change/index.mjs":false,"./utils/use-motion-value-event.mjs":false,"./utils/reduced-motion/use-reduced-motion.mjs":false,"./utils/reduced-motion/use-reduced-motion-config.mjs":false,"./animation/hooks/animation-controls.mjs":false,"./animation/hooks/use-animate.mjs":false,"./animation/hooks/use-animation.mjs":false,"./utils/use-animation-frame.mjs":false,"./animation/interfaces/visual-element.mjs":false,"./utils/use-cycle.mjs":false,"./motion/utils/valid-prop.mjs":false,"./components/AnimatePresence/use-presence.mjs":false,"./utils/use-in-view.mjs":false,"./gestures/drag/use-drag-controls.mjs":false,"./events/use-dom-event.mjs":false,"./motion/index.mjs":false,"./motion/utils/is-motion-component.mjs":false,"./motion/utils/unwrap-motion-component.mjs":false,"./render/VisualElement.mjs":false,"./projection/styles/scale-correction.mjs":false,"./utils/use-instant-transition.mjs":false,"./projection/use-instant-layout-transition.mjs":false,"./projection/use-reset-projection.mjs":false,"./render/html/utils/build-transform.mjs":false,"./render/store.mjs":false,"./animation/animators/MainThreadAnimation.mjs":false,"./value/types/color/index.mjs":false,"./value/types/complex/index.mjs":false,"./value/types/numbers/units.mjs":false,"./utils/GlobalConfig.mjs":false,"./animation/animators/AcceleratedAnimation.mjs":false,"./animation/optimized-appear/start.mjs":false,"./animation/optimized-appear/data-id.mjs":false,"./animation/generators/spring/index.mjs":false,"./context/MotionContext/index.mjs":false,"./context/MotionConfigContext.mjs":false,"./context/PresenceContext.mjs":false,"./context/LayoutGroupContext.mjs":false,"./context/SwitchLayoutGroupContext.mjs":false,"./render/utils/flat-tree.mjs":false,"./context/DeprecatedLayoutGroupContext.mjs":false,"./animation/hooks/use-animated-state.mjs":false,"./value/use-inverted-scale.mjs":false,"./components/AnimateSharedLayout.mjs":false,"./value/index.mjs":false,"./animation/animate.mjs":false,"./render/dom/scroll/index.mjs":false,"./render/dom/scroll/track.mjs":false,"./render/dom/viewport/index.mjs":false,"./animation/utils/stagger.mjs":false,"./utils/transform.mjs":false,"./utils/clamp.mjs":false,"./utils/mix/index.mjs":false,"./utils/pipe.mjs":false,"./utils/progress.mjs":false,"./utils/wrap.mjs":false,"./frameloop/index-legacy.mjs":false,"./easing/anticipate.mjs":false,"./easing/back.mjs":false,"./easing/circ.mjs":false,"./easing/ease.mjs":false,"./easing/cubic-bezier.mjs":false,"./easing/modifiers/mirror.mjs":false,"./easing/modifiers/reverse.mjs":false,"./utils/delay.mjs":false,"./utils/distance.mjs":false,"./utils/errors.mjs":false,"./utils/interpolate.mjs":false,"./frameloop/frame.mjs":false,"./motion/features/animations.mjs":false,"./projection/geometry/models.mjs":false,"./projection/geometry/delta-calc.mjs":false,"./render/dom/utils/filter-props.mjs":false,"./motion/utils/use-visual-state.mjs":false,"./gestures/drag/utils/lock.mjs":false,"./events/add-pointer-event.mjs":false,"./events/event-info.mjs":false,"./value/utils/is-motion-value.mjs":false,"./utils/is-browser.mjs":false,"./utils/use-unmount-effect.mjs":false,"./utils/use-isomorphic-effect.mjs":false,"./utils/use-force-update.mjs":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"b9GPH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LayoutGroup", ()=>LayoutGroup);
-var _react = require("react");
-var _layoutGroupContextMjs = require("../../context/LayoutGroupContext.mjs");
-var _deprecatedLayoutGroupContextMjs = require("../../context/DeprecatedLayoutGroupContext.mjs");
-var _useForceUpdateMjs = require("../../utils/use-force-update.mjs");
-var _groupMjs = require("../../projection/node/group.mjs");
-const shouldInheritGroup = (inherit)=>inherit === true;
-const shouldInheritId = (inherit)=>shouldInheritGroup(inherit === true) || inherit === "id";
-const LayoutGroup = ({ children, id, inherit = true })=>{
-    const layoutGroupContext = (0, _react.useContext)((0, _layoutGroupContextMjs.LayoutGroupContext));
-    const deprecatedLayoutGroupContext = (0, _react.useContext)((0, _deprecatedLayoutGroupContextMjs.DeprecatedLayoutGroupContext));
-    const [forceRender, key] = (0, _useForceUpdateMjs.useForceUpdate)();
-    const context = (0, _react.useRef)(null);
-    const upstreamId = layoutGroupContext.id || deprecatedLayoutGroupContext;
-    if (context.current === null) {
-        if (shouldInheritId(inherit) && upstreamId) id = id ? upstreamId + "-" + id : upstreamId;
-        context.current = {
-            id,
-            group: shouldInheritGroup(inherit) ? layoutGroupContext.group || (0, _groupMjs.nodeGroup)() : (0, _groupMjs.nodeGroup)()
-        };
-    }
-    const memoizedContext = (0, _react.useMemo)(()=>({
-            ...context.current,
-            forceRender
-        }), [
-        key
-    ]);
-    return _react.createElement((0, _layoutGroupContextMjs.LayoutGroupContext).Provider, {
-        value: memoizedContext
-    }, children);
-};
-
-},{"react":"21dqq","../../context/LayoutGroupContext.mjs":"dEA1W","../../context/DeprecatedLayoutGroupContext.mjs":"6NZsP","../../utils/use-force-update.mjs":"58SRa","../../projection/node/group.mjs":"4741X","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEA1W":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LayoutGroupContext", ()=>LayoutGroupContext);
-var _react = require("react");
-const LayoutGroupContext = (0, _react.createContext)({});
-
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6NZsP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "DeprecatedLayoutGroupContext", ()=>DeprecatedLayoutGroupContext);
-var _react = require("react");
-/**
- * Note: Still used by components generated by old versions of Framer
- *
- * @deprecated
- */ const DeprecatedLayoutGroupContext = (0, _react.createContext)(null);
-
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"58SRa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "useForceUpdate", ()=>useForceUpdate);
-var _react = require("react");
-var _useIsMountedMjs = require("./use-is-mounted.mjs");
-var _frameMjs = require("../frameloop/frame.mjs");
-function useForceUpdate() {
-    const isMounted = (0, _useIsMountedMjs.useIsMounted)();
-    const [forcedRenderCount, setForcedRenderCount] = (0, _react.useState)(0);
-    const forceRender = (0, _react.useCallback)(()=>{
-        isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
-    }, [
-        forcedRenderCount
-    ]);
-    /**
-     * Defer this to the end of the next animation frame in case there are multiple
-     * synchronous calls.
-     */ const deferredForceRender = (0, _react.useCallback)(()=>(0, _frameMjs.frame).postRender(forceRender), [
-        forceRender
-    ]);
-    return [
-        deferredForceRender,
-        forcedRenderCount
-    ];
-}
-
-},{"react":"21dqq","./use-is-mounted.mjs":"6UT6v","../frameloop/frame.mjs":"3xPo8","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6UT6v":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "useIsMounted", ()=>useIsMounted);
-var _react = require("react");
-var _useIsomorphicEffectMjs = require("./use-isomorphic-effect.mjs");
-function useIsMounted() {
-    const isMounted = (0, _react.useRef)(false);
-    (0, _useIsomorphicEffectMjs.useIsomorphicLayoutEffect)(()=>{
-        isMounted.current = true;
-        return ()=>{
-            isMounted.current = false;
-        };
-    }, []);
-    return isMounted;
-}
-
-},{"react":"21dqq","./use-isomorphic-effect.mjs":"5Yog2","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"5Yog2":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "useIsomorphicLayoutEffect", ()=>useIsomorphicLayoutEffect);
-var _react = require("react");
-var _isBrowserMjs = require("./is-browser.mjs");
-const useIsomorphicLayoutEffect = (0, _isBrowserMjs.isBrowser) ? (0, _react.useLayoutEffect) : (0, _react.useEffect);
-
-},{"react":"21dqq","./is-browser.mjs":"1XAMO","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1XAMO":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "isBrowser", ()=>isBrowser);
-const isBrowser = typeof document !== "undefined";
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3xPo8":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "cancelFrame", ()=>cancelFrame);
-parcelHelpers.export(exports, "frame", ()=>frame);
-parcelHelpers.export(exports, "frameData", ()=>frameData);
-parcelHelpers.export(exports, "steps", ()=>steps);
-var _noopMjs = require("../utils/noop.mjs");
-var _batcherMjs = require("./batcher.mjs");
-const { schedule: frame, cancel: cancelFrame, state: frameData, steps } = (0, _batcherMjs.createRenderBatcher)(typeof requestAnimationFrame !== "undefined" ? requestAnimationFrame : (0, _noopMjs.noop), true);
-
-},{"../utils/noop.mjs":"67SDH","./batcher.mjs":"3fYwv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"67SDH":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "noop", ()=>noop);
-const noop = (any)=>any;
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3fYwv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createRenderBatcher", ()=>createRenderBatcher);
-parcelHelpers.export(exports, "stepsOrder", ()=>stepsOrder);
-var _globalConfigMjs = require("../utils/GlobalConfig.mjs");
-var _renderStepMjs = require("./render-step.mjs");
-const stepsOrder = [
-    "read",
-    "resolveKeyframes",
-    "update",
-    "preRender",
-    "render",
-    "postRender"
-];
-const maxElapsed = 40;
-function createRenderBatcher(scheduleNextBatch, allowKeepAlive) {
-    let runNextFrame = false;
-    let useDefaultElapsed = true;
-    const state = {
-        delta: 0,
-        timestamp: 0,
-        isProcessing: false
-    };
-    const steps = stepsOrder.reduce((acc, key)=>{
-        acc[key] = (0, _renderStepMjs.createRenderStep)(()=>runNextFrame = true);
-        return acc;
-    }, {});
-    const processStep = (stepId)=>{
-        steps[stepId].process(state);
-    };
-    const processBatch = ()=>{
-        const timestamp = (0, _globalConfigMjs.MotionGlobalConfig).useManualTiming ? state.timestamp : performance.now();
-        runNextFrame = false;
-        state.delta = useDefaultElapsed ? 1000 / 60 : Math.max(Math.min(timestamp - state.timestamp, maxElapsed), 1);
-        state.timestamp = timestamp;
-        state.isProcessing = true;
-        stepsOrder.forEach(processStep);
-        state.isProcessing = false;
-        if (runNextFrame && allowKeepAlive) {
-            useDefaultElapsed = false;
-            scheduleNextBatch(processBatch);
-        }
-    };
-    const wake = ()=>{
-        runNextFrame = true;
-        useDefaultElapsed = true;
-        if (!state.isProcessing) scheduleNextBatch(processBatch);
-    };
-    const schedule = stepsOrder.reduce((acc, key)=>{
-        const step = steps[key];
-        acc[key] = (process, keepAlive = false, immediate = false)=>{
-            if (!runNextFrame) wake();
-            return step.schedule(process, keepAlive, immediate);
-        };
-        return acc;
-    }, {});
-    const cancel = (process)=>stepsOrder.forEach((key)=>steps[key].cancel(process));
-    return {
-        schedule,
-        cancel,
-        state,
-        steps
-    };
-}
-
-},{"../utils/GlobalConfig.mjs":"e6NaD","./render-step.mjs":"61ioC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"e6NaD":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "MotionGlobalConfig", ()=>MotionGlobalConfig);
-const MotionGlobalConfig = {
-    skipAnimations: false,
-    useManualTiming: false
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"61ioC":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createRenderStep", ()=>createRenderStep);
-class Queue {
-    constructor(){
-        this.order = [];
-        this.scheduled = new Set();
-    }
-    add(process) {
-        if (!this.scheduled.has(process)) {
-            this.scheduled.add(process);
-            this.order.push(process);
-            return true;
-        }
-    }
-    remove(process) {
-        const index = this.order.indexOf(process);
-        if (index !== -1) {
-            this.order.splice(index, 1);
-            this.scheduled.delete(process);
-        }
-    }
-    clear() {
-        this.order.length = 0;
-        this.scheduled.clear();
-    }
-}
-function createRenderStep(runNextFrame) {
-    /**
-     * We create and reuse two queues, one to queue jobs for the current frame
-     * and one for the next. We reuse to avoid triggering GC after x frames.
-     */ let thisFrame = new Queue();
-    let nextFrame = new Queue();
-    let numToRun = 0;
-    /**
-     * Track whether we're currently processing jobs in this step. This way
-     * we can decide whether to schedule new jobs for this frame or next.
-     */ let isProcessing = false;
-    let flushNextFrame = false;
-    /**
-     * A set of processes which were marked keepAlive when scheduled.
-     */ const toKeepAlive = new WeakSet();
-    const step = {
-        /**
-         * Schedule a process to run on the next frame.
-         */ schedule: (callback, keepAlive = false, immediate = false)=>{
-            const addToCurrentFrame = immediate && isProcessing;
-            const queue = addToCurrentFrame ? thisFrame : nextFrame;
-            if (keepAlive) toKeepAlive.add(callback);
-            if (queue.add(callback) && addToCurrentFrame && isProcessing) // If we're adding it to the currently running queue, update its measured size
-            numToRun = thisFrame.order.length;
-            return callback;
-        },
-        /**
-         * Cancel the provided callback from running on the next frame.
-         */ cancel: (callback)=>{
-            nextFrame.remove(callback);
-            toKeepAlive.delete(callback);
-        },
-        /**
-         * Execute all schedule callbacks.
-         */ process: (frameData)=>{
-            /**
-             * If we're already processing we've probably been triggered by a flushSync
-             * inside an existing process. Instead of executing, mark flushNextFrame
-             * as true and ensure we flush the following frame at the end of this one.
-             */ if (isProcessing) {
-                flushNextFrame = true;
-                return;
-            }
-            isProcessing = true;
-            [thisFrame, nextFrame] = [
-                nextFrame,
-                thisFrame
-            ];
-            // Clear the next frame queue
-            nextFrame.clear();
-            // Execute this frame
-            numToRun = thisFrame.order.length;
-            if (numToRun) for(let i = 0; i < numToRun; i++){
-                const callback = thisFrame.order[i];
-                if (toKeepAlive.has(callback)) {
-                    step.schedule(callback);
-                    runNextFrame();
-                }
-                callback(frameData);
-            }
-            isProcessing = false;
-            if (flushNextFrame) {
-                flushNextFrame = false;
-                step.process(frameData);
-            }
-        }
-    };
-    return step;
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4741X":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "nodeGroup", ()=>nodeGroup);
-const notify = (node)=>!node.isLayoutDirty && node.willUpdate(false);
-function nodeGroup() {
-    const nodes = new Set();
-    const subscriptions = new WeakMap();
-    const dirtyAll = ()=>nodes.forEach(notify);
-    return {
-        add: (node)=>{
-            nodes.add(node);
-            subscriptions.set(node, node.addEventListener("willUpdate", dirtyAll));
-        },
-        remove: (node)=>{
-            nodes.delete(node);
-            const unsubscribe = subscriptions.get(node);
-            if (unsubscribe) {
-                unsubscribe();
-                subscriptions.delete(node);
-            }
-            dirtyAll();
-        },
-        dirty: dirtyAll
-    };
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9kHTg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9kHTg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$c970 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31311,7 +30768,7 @@ $RefreshReg$(_c4, "Button");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../data.js":"9kapS","styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Comment.js":"gqZUx","./UnstyledButton.js":"duLt6","react":"21dqq","./CommentsProvider":"cnnSc"}],"duLt6":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","./Comment.js":"gqZUx","../data.js":"9kapS","styled-components":"1U3k6","./UnstyledButton.js":"duLt6","react":"21dqq","./CommentsProvider":"cnnSc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"duLt6":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _styledComponents = require("styled-components");
@@ -31336,13 +30793,7 @@ exports.default = (0, _styledComponentsDefault.default).button`
   }
 `;
 
-},{"styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iYoGg":[function(require,module,exports) {
-module.exports = require("29cbf70d8910e3dc").getBundleURL("bLxZJ") + "icon-edit.ae77df9a.svg" + "?" + Date.now();
-
-},{"29cbf70d8910e3dc":"lgJ39"}],"iHLMv":[function(require,module,exports) {
-module.exports = require("9324237ff072c878").getBundleURL("bLxZJ") + "icon-delete.97171805.svg" + "?" + Date.now();
-
-},{"9324237ff072c878":"lgJ39"}],"hQjSf":[function(require,module,exports) {
+},{"styled-components":"1U3k6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hQjSf":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$b389 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31454,7 +30905,7 @@ $RefreshReg$(_c2, "Button");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./AddComment":"9kHTg","styled-components":"1U3k6","./CommentsProvider":"cnnSc","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./UnstyledButton":"duLt6"}],"41TFd":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./AddComment":"9kHTg","styled-components":"1U3k6","./CommentsProvider":"cnnSc","./UnstyledButton":"duLt6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"41TFd":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$47fe = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31620,7 +31071,7 @@ $RefreshReg$(_c5, "CancelButton");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","react/jsx-dev-runtime":"iTorj","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","styled-components":"1U3k6","@radix-ui/react-dialog":"6XGgt","./UnstyledButton":"duLt6","./CommentsProvider":"cnnSc","react":"21dqq"}],"6XGgt":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","styled-components":"1U3k6","@radix-ui/react-dialog":"6XGgt","./UnstyledButton":"duLt6","./CommentsProvider":"cnnSc","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"6XGgt":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "createDialogScope", ()=>$5d3850c4d0b4e6c7$export$cc702773b8ea3e41);
