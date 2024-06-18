@@ -27,10 +27,13 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   const commentRef = useRef(null);
 
   useEffect(() => {
-    if (!hasScrolled) window.scroll({ top: 0, behavior: "smooth" });
-    commentRef.current.scrollIntoView({ behavior: "smooth" });
-    setHasScrolled(true);
-  }, [content, isEditing, replying, hasScrolled]);
+    if (hasScrolled || content) {
+      commentRef.current.scrollIntoView({ behavior: "smooth" });
+    } else {
+      setHasScrolled(true);
+    }
+    console.log(commentRef.current);
+  }, [content, isEditing, replying]);
 
   return (
     <>
