@@ -1,6 +1,7 @@
 // CommentContext.js
 import React, { createContext, useEffect, useState } from "react";
 import { DATA } from "../data";
+import { flushSync } from "react-dom";
 
 export const CommentContext = createContext();
 
@@ -30,7 +31,9 @@ function CommentsProvider({ children }) {
     };
 
     if (parentId === null) {
-      setComments([...comments, currentComment]); //When adding a new comment
+      flushSync(() => {
+        setComments([...comments, currentComment]); //When adding a new comment
+      });
     } else {
       const updatedComments = comments.map((comment) => {
         if (comment.id === parentId) {
@@ -41,7 +44,9 @@ function CommentsProvider({ children }) {
         }
         return comment;
       });
-      setComments(updatedComments);
+      flushSync(() => {
+        setComments(updatedComments);
+      });
     }
   }
 
@@ -91,7 +96,10 @@ function CommentsProvider({ children }) {
       }
       return comment;
     });
-    setComments(updatedComments);
+
+    flushSync(() => {
+      setComments(updatedComments);
+    });
   }
 
   function changeScore(id, direction) {
@@ -123,7 +131,9 @@ function CommentsProvider({ children }) {
       return comment;
     });
 
-    setComments(updatedComments);
+    flushSync(() => {
+      setComments(updatedComments);
+    });
   }
 
   function updateTimeSincePosted(date) {

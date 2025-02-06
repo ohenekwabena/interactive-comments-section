@@ -2,9 +2,11 @@ import { Avatar } from "./Comment.js";
 import { DATA as userData } from "../data.js";
 import { styled } from "styled-components";
 import UnstyledButton from "./UnstyledButton.js";
-import { useContext, useState } from "react";
+import { forwardRef, useContext, useState } from "react";
 import { CommentContext } from "./CommentsProvider";
-function AddComment({ username, isReplying, parentId, replying }) {
+
+const ReplyTextWithRef = forwardRef((props, ref) => <ReplyText ref={ref} {...props} />);
+function AddComment({ username, isReplying, parentId, replying, textAreaRef }) {
   const { addComment } = useContext(CommentContext);
   const [userComment, setUserComment] = useState("");
 
@@ -27,12 +29,13 @@ function AddComment({ username, isReplying, parentId, replying }) {
   return (
     <Wrapper layout={true}>
       <ReplyAvatar src={userData[0].currentUser.image.png} alt="" />
-      <ReplyText
+      <ReplyTextWithRef
+        ref={textAreaRef}
         layout={true}
         placeholder="Add a comment..."
         onChange={(e) => setUserComment(e.target.value)}
         value={userComment}
-      ></ReplyText>
+      ></ReplyTextWithRef>
       <Button onClick={postComment}>Send</Button>
     </Wrapper>
   );

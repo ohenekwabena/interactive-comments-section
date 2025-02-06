@@ -1,10 +1,11 @@
-import { useContext, useState } from "react";
+import { forwardRef, useContext, useState } from "react";
 import { ReplyText } from "./AddComment";
 import { styled } from "styled-components";
 import { CommentContext } from "./CommentsProvider";
 import UnstyledButton from "./UnstyledButton";
 
-function EditComment({ id, replyingTo, setIsEditing }) {
+const ReplyTextWithRef = forwardRef((props, ref) => <ReplyText ref={ref} {...props} />);
+function EditComment({ id, replyingTo, setIsEditing, textAreaRef }) {
   const { comments, editComment } = useContext(CommentContext);
 
   let selectedComment;
@@ -41,7 +42,11 @@ function EditComment({ id, replyingTo, setIsEditing }) {
 
   return (
     <Wrapper>
-      <ReplyText value={editedComment} onChange={(e) => setEditedComment(e.target.value)}></ReplyText>
+      <ReplyTextWithRef
+        ref={textAreaRef}
+        value={editedComment}
+        onChange={(e) => setEditedComment(e.target.value)}
+      ></ReplyTextWithRef>
       <Button onClick={updatedComment}>Update</Button>
     </Wrapper>
   );

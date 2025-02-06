@@ -25,18 +25,50 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
   const timeSincePosted = updateTimeSincePosted(createdAt);
 
   const commentRef = useRef(null);
+  const textAreaRef = useRef(null);
+  const editTextAreaRef = useRef(null);
+
+  function handleReply() {
+    if (replying) {
+      setReplying(false);
+    } else {
+      setReplying(true);
+    }
+  }
 
   useEffect(() => {
-    if (hasScrolled || content) {
-      commentRef.current.scrollIntoView({ behavior: "smooth" });
-    } else {
+    if (replying) {
+      if (textAreaRef.current) textAreaRef.current.focus();
+    }
+    if (isEditing) {
+      if (editTextAreaRef.current) editTextAreaRef.current.focus();
+    }
+  }, [replying, isEditing]);
+  // useEffect(() => {
+  //   if (hasScrolled || content) {
+  //     commentRef.current.scrollIntoView({ behavior: "smooth" });
+  //   } else {
+  //     setHasScrolled(true);
+  //   }
+  //   console.log(commentRef.current);
+  // }, [content, isEditing, replying]);
+
+  useEffect(() => {
+    if (!hasScrolled && commentRef.current) {
+      commentRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
       setHasScrolled(true);
     }
-    console.log(commentRef.current);
-  }, [content, isEditing, replying]);
+  }, [content]);
+
+  useEffect(() => {
+    if (replies?.length > 0) {
+      const lastReply = document.querySelector("#comments-wrapper > :last-child");
+      lastReply?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [replies]);
 
   return (
-    <>
+    <div id="comments-wrapper">
       <div>
         <Wrapper ref={commentRef}>
           <Head>
@@ -47,7 +79,12 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
           </Head>
           <Content>
             {isEditing ? (
-              <EditComment id={actualId} replyingTo={replyingTo} setIsEditing={setIsEditing} />
+              <EditComment
+                id={actualId}
+                replyingTo={replyingTo}
+                setIsEditing={setIsEditing}
+                textAreaRef={editTextAreaRef}
+              />
             ) : (
               <p>
                 {replyingTo && <ReplyingTo>@{replyingTo}</ReplyingTo>} {content}
@@ -76,7 +113,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
                 </EditButton>
               </>
             ) : (
-              <Reply onClick={() => setReplying(!replying)}>
+              <Reply onClick={handleReply}>
                 <img src={ReplyIcon} alt="" />
                 <p>Reply</p>
               </Reply>
@@ -85,6 +122,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
         </Wrapper>
         {replying && (
           <AddComment
+            textAreaRef={textAreaRef}
             isReplying={setReplying}
             username={user.username}
             parentId={forwardedParentId}
@@ -111,7 +149,7 @@ function Comment({ actualId, parentId, content, createdAt, score, user, replies,
       )}
 
       <DeleteComment id={actualId} setConfirmDelete={setConfirmDelete} confirmDelete={confirmDelete} />
-    </>
+    </div>
   );
 }
 
